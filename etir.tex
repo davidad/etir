@@ -2,14 +2,15 @@
 
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
-\usepackage[ansinew]{inputenc}
+%\usepackage[ansinew]{inputenc}
+\usepackage{lmodern}	% font definition
 \usepackage{verse}
 
 \usepackage{parskip}
-\usepackage{lmodern}	% font definition
 \usepackage{graphicx}
 \usepackage[top=1.5cm,bottom=2.5cm,right=1.5cm,left=1.5cm]{geometry}
 \usepackage{pdflscape}
+\usepackage[numbers]{natbib}
 
 \usepackage[urw-garamond]{mathdesign}
 
@@ -25,9 +26,32 @@
 \usetikzlibrary{decorations.pathmorphing} % noisy shapes
 \usetikzlibrary{fit}					% fitting shapes to coordinates
 
+\usepackage[ps2pdf,bookmarks=true,bookmarksopen,bookmarksopenlevel=1,pdfpagelayout=OneColumn]{hyperref}
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat’s bookmarks
+    pdftoolbar=false,        % show Acrobat’s toolbar?
+    pdfmenubar=true,        % show Acrobat’s menu?
+    pdffitwindow=true,     % window fit to page when opened
+    pdfstartview={FitV},    % fits the width of the page to the window
+    pdftitle={Space-TP ETIR 0.1},    % title
+    pdfauthor={SU GSP10 Space Team},     % author
+    pdfsubject={Space},   % subject of the document
+    pdfcreator={SU GSP10 Space Team},   % creator of the document
+    pdfproducer={David Dalrymple}, % producer of the document
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,          % color of internal links
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+
 \newcommand{\attrib}[1]{\nopagebreak{\raggedleft\footnotesize #1\par}}
 \newcommand{\todo}[1]{\textcolor{lightgray}{\textit{<<#1>>}}}
 \newcommand{\tbc}{\begin{center} \todo{to be completed} \end{center}}
+\newcommand{\tbcsubsubsection}[1]{ \refstepcounter{subsubsection}%
+  \subsubsection*{\thesubsubsection \quad #1} \tbc}
 
 \setlength{\parskip}{0.3cm plus3mm minus1mm}
 \setlength{\parindent}{0cm}
@@ -182,10 +206,13 @@ exponential technologies and solution domains, and to help us focus our
 in-depth analysis of conceptual solutions to those areas that appear
 more fruitful.
 
-The qualitative analysis of the relative importance of each of the
-solution domains is presented in the form of a series of
-\emph{heatmaps}, according to the following scale:\newline
+We have divided the problem space in two different ways. First, we have intersected each of the problem areas in section The qualitative
+analysis of the relative importance of each of the solution domains is
+presented in the form of a series of \emph{heatmaps}, according to the
+following scale:\newline
+
 \includegraphics[width=4.2in]{Heatmapscale.eps}
+\newline
 
 \newpage
 
@@ -242,14 +269,12 @@ materials, and more easily reusable materials (i.e. nanodisassembler)
 
 In the near term, the greatest use of 3D printing in human space missions is printing tools or components as they are needed. Custom-built tools mean fewer tools taken to orbit with less redundancy in number of tools taken. In the longer term, 3D printers are compelling and enabling tools for human colonization. The ability of either robots or humans to be able to print what is necessary using local materials is a compelling reason to pursue this technology.
 
-\subsubsection{Convergences}
+\tbcsubsubsection{Convergences}
 % identify if there is a convergence (or mutual benefit) from other technologies
-\tbc
 
-\subsubsection{Barriers}
+\tbcsubsubsection{Barriers}
 % identify potential barriers to the development or adoption of this technology
 % identify significant bottlenecks in technology, process, law, policy, regulation, and approaches and potential solutions to these bottlenecks (this detailed assessment would be applied to opportunities you chose to highlight)
-\tbc
 
 \subsection{Asteroid Mining}
 
@@ -263,10 +288,9 @@ near-Earth asteroids and comets that circulate our solar system.  Hence, it is
 of great importance that a powerful initiative be put in to place to secure the
 valuable materials from these bodies and bring them back to Earth.
 
-\subsubsection{State of the Art}
+\tbcsubsubsection{State of the Art}
 % assess the current state of the technology
 % identify companies, researchers, etc working in this area, with links and references
-\tbc
 
 \subsubsection{Related Exponential Technologies}
 \begin{itemize}
@@ -291,9 +315,8 @@ Mining the asteroids will not only avert the global crisis that would have been
 brought about by a poverty of critical resources, it will usher in a new era of
 utopian abundance in the near-term future of humankind.
 
-\subsubsection{Convergences}
+\tbcsubsubsection{Convergences}
 % identify if there is a convergence (or mutual benefit) from other technologies
-\tbc
 
 \subsubsection{Barriers}
 % identify potential barriers to the development or adoption of this technology
@@ -380,14 +403,12 @@ The microwave beam-powered launch system will decrease in price exponentially as
 	\item Much simpler, highly modular launch vehicle with cheaper construction and maintenance
 \end{enumerate}
 
-\subsubsection{Convergences}
+\tbcsubsubsection{Convergences}
 % identify if there is a convergence (or mutual benefit) from other technologies
-\tbc
 
-\subsubsection{Barriers}
+\tbcsubsubsection{Barriers}
 % identify potential barriers to the development or adoption of this technology
 % identify significant bottlenecks in technology, process, law, policy, regulation, and approaches and potential solutions to these bottlenecks (this detailed assessment would be applied to opportunities you chose to highlight)
-\tbc
 
 \subsection{Biology-Based Life Support Systems}
 
@@ -408,21 +429,18 @@ Harnessing the interactions of Microorganisms with geological, biological and te
 	\item \textit{30 years} -- Controlled amelioration of regolith and symbiotic advanced life support systems for human life in extreme environments.
 \end{itemize}
 
-\subsubsection{Convergences}
+\tbcsubsubsection{Convergences}
 % identify if there is a convergence (or mutual benefit) from other technologies
-\tbc
 
-\subsubsection{Barriers}
+\tbcsubsubsection{Barriers}
 % identify potential barriers to the development or adoption of this technology
 % identify significant bottlenecks in technology, process, law, policy, regulation, and approaches and potential solutions to these bottlenecks (this detailed assessment would be applied to opportunities you chose to highlight)
-\tbc
 
 \subsection{Cloud of Satellites}
 
-\subsubsection{State of the Art}
+\tbcsubsubsection{State of the Art}
 % assess the current state of the technology
 % identify companies, researchers, etc working in this area, with links and references
-\tbc
 
 \subsubsection{Related Exponential Technologies}
 
@@ -445,14 +463,46 @@ research, exploration and colonization of the solar system. From our big
 ``mainframe'' satellites of today, to an ubiquitous service-based
 infrastructure of femtosatellites and smart dust.
 
-\subsubsection{Convergences}
+\tbcsubsubsection{Convergences}
 % identify if there is a convergence (or mutual benefit) from other technologies
-\tbc
 
-\subsubsection{Barriers}
+\tbcsubsubsection{Barriers}
 % identify potential barriers to the development or adoption of this technology
 % identify significant bottlenecks in technology, process, law, policy, regulation, and approaches and potential solutions to these bottlenecks (this detailed assessment would be applied to opportunities you chose to highlight)
+
+\subsection{Disease Treatment in Space}
+
+The environment of space provides a unique platform for creating treatments for
+diseases on Earth, and also a new set of challenges for treating astronauts and
+space colonists. Building a research platform in space is necessary to transfer
+all the benefits provided by its unique environment in the form of enhanced
+information back to Earth.
+
+\subsubsection{State of the Art}
+% assess the current state of the technology
+% identify companies, researchers, etc working in this area, with links and references
+The already existing ISS platform could be used in combination with Nanoracks
+and CubeLab infrastructure already being booked for imminent launch.
+
+\subsubsection{Related Exponential Technologies}
+
+Biotechnology
 \tbc
+
+\subsubsection{Potential Benefits}
+% make an estimate of the potential benefit of this technology
+% estimate if this is near term or longer term, or other labels to measure the opportunity
+
+\paragraph{Microgravity provides an opportunity to disrupt normal processes of gene expression and biochemistry.} Some preliminary work has shown that second generation drosophila flies have reduced tumor growth when first and second generation flies have grown in a microgravity environment. Faster and better techniques such as gene sequencing technology enables us to iterate such experiments faster, and probe the reason for such results exponentially faster and better. Protein crystallography may also be enhanced by the absence of gravity, thus providing much better quality crystals that could be imaged by X ray crystallography. These images could then be used on Earth for drug targeting and development. By understanding these processes we may be able to improve the knowledge of cancer and other diseases, and possible cures. More studies in the effects of microgravity in cancer and other diseases, especially on the organism level are needed, and will be enabled by such recent technologies as cheap commercial launches and modular experiment systems (e.g. Nanoracks).
+
+\paragraph{Microgravity provides a novel opportunity to do organ development and embryogenesis.} There are new techniques in organ printing and 3D bioreactors that may benefit from the microgravity environment. 3D bioreactors can grow cells on an artificial 3D matrix.
+
+\tbcsubsubsection{Convergences}
+% identify if there is a convergence (or mutual benefit) from other technologies
+
+\tbcsubsubsection{Barriers}
+% identify potential barriers to the development or adoption of this technology
+% identify significant bottlenecks in technology, process, law, policy, regulation, and approaches and potential solutions to these bottlenecks (this detailed assessment would be applied to opportunities you chose to highlight)
 
 \subsection{Extreme Design: Inflatable architectures}
 
@@ -498,10 +548,9 @@ development of a successful research and design proposal for forthcoming
 manufacture and testing of innovative and advanced space, or Singularity-space
 hardware. 
 
-\subsubsection{Barriers}
+\tbcsubsubsection{Barriers}
 % identify potential barriers to the development or adoption of this technology
 % identify significant bottlenecks in technology, process, law, policy, regulation, and approaches and potential solutions to these bottlenecks (this detailed assessment would be applied to opportunities you chose to highlight)
-\tbc
 
 \subsection{Nanomaterials in Satellites}
 
@@ -522,14 +571,12 @@ Nanotechnology
 % estimate if this is near term or longer term, or other labels to measure the opportunity
 By leveraging the properties of nanoscale gold  to ``squeeze'' into tiny holes in the surface of a device researchers have doubled the detectivity of infrared detectors. Essentially this technology will enable ultra powerful and ultra small space craft imaging. 
 
-\subsubsection{Convergences}
+\tbcsubsubsection{Convergences}
 % identify if there is a convergence (or mutual benefit) from other technologies
-\tbc
 
-\subsubsection{Barriers}
+\tbcsubsubsection{Barriers}
 % identify potential barriers to the development or adoption of this technology
 % identify significant bottlenecks in technology, process, law, policy, regulation, and approaches and potential solutions to these bottlenecks (this detailed assessment would be applied to opportunities you chose to highlight)
-\tbc
 
 \subsection{Neuroscience in Space}
 
@@ -550,22 +597,16 @@ with electrial stimulation through MEA. Both methods influence clusters of
 neurons while MEA offers stimulations with a better precision.
 
 Noninvasive neural recordings can help us understand the conditions of
-individual physical and psychological health \cite{rosa-feedback}. Besides
-health diagnosis, these signals can be also acting as lie detector which can
-prevent potential interpersonal misunderstanding and can be used an optimal
-conflict resolution tool in space. Utilizing the real-time noninvasive neural
-signals recorded, neurofeedback helped the subjects to learn how to control
-over their own brain activation \cite{rosa-feedback}. Success can be also found
-in the treatment of attention deficit disorder, pain control and reduction in
-anxiety.
+individual physical and psychological health \cite{rosa-feedback}. Utilizing
+the real-time noninvasive neural signals recorded, neurofeedback helped the
+subjects to learn how to control over their own brain activation
+\cite{rosa-feedback}. Success can be also found in the treatment of attention
+deficit disorder, pain control and reduction in anxiety.
 
 Researchers have already demonstrated that we can control computer cursors and
 even robotic arms by decoding neural signals, such as the DEKA arm. Brain waves
 were also demonstrated to be able to classify a subset of words in internal
-speech \cite{rosa-word}. As the noninvasive recording techniques increase in
-their time and spatial resolution, real-time decoding of the resulting neural
-signals will help us to handle multiple tasks and communicate with multiple
-colleagues more efficiently.
+speech \cite{rosa-word}.
 
 \subsubsection{Related Exponential Technologies}
 
@@ -581,16 +622,20 @@ as stroke, Parkinson's disease, depression, dystonia, tinnitus, epilepsy,
 amyotrophic lateral sclerosis, schizophrenia, addiction, obsessive-compulsive
 disorder, Torette's syndrome, and memory dysfunction \cite{rosa-tms}. With
 improving selectivity, noninvasive neural stimulations are promising to provide
-easier treatments to various neural diseases.
+easier treatments to various neural diseases. Besides health diagnosis, these
+signals can be also acting as lie detector which can prevent potential
+interpersonal misunderstanding and can be used an optimal conflict resolution
+tool in space. As the noninvasive recording techniques increase in their time
+and spatial resolution, real-time decoding of the resulting neural signals will
+help us to handle multiple tasks and communicate with multiple colleagues more
+efficiently.
 
-\subsubsection{Convergences}
+\tbcsubsubsection{Convergences}
 % identify if there is a convergence (or mutual benefit) from other technologies
-\tbc
 
-\subsubsection{Barriers}
+\tbcsubsubsection{Barriers}
 % identify potential barriers to the development or adoption of this technology
 % identify significant bottlenecks in technology, process, law, policy, regulation, and approaches and potential solutions to these bottlenecks (this detailed assessment would be applied to opportunities you chose to highlight)
-\tbc
 
 \subsection{Planetary Protection}
 
@@ -602,8 +647,7 @@ Various levels of planetary protection, sample return restrictions and
 cross-contamination considerations including the issue of material selection
 for space components and assembly, protocols and handling.
 
-\subsubsection{Related Exponential Technologies}
-\tbc
+\tbcsubsubsection{Related Exponential Technologies}
 
 \subsubsection{Potential Benefits}
 % make an estimate of the potential benefit of this technology
@@ -629,14 +673,12 @@ for space components and assembly, protocols and handling.
 		major-Earth based prioriy
 \end{itemize}
 
-\subsubsection{Convergences}
+\tbcsubsubsection{Convergences}
 % identify if there is a convergence (or mutual benefit) from other technologies
-\tbc
 
-\subsubsection{Barriers}
+\tbcsubsubsection{Barriers}
 % identify potential barriers to the development or adoption of this technology
 % identify significant bottlenecks in technology, process, law, policy, regulation, and approaches and potential solutions to these bottlenecks (this detailed assessment would be applied to opportunities you chose to highlight)
-\tbc
 
 \subsection{Swarm Space Exploration}
 
@@ -736,14 +778,12 @@ The applications of these small spacecraft are manifold, for example:
 		a space base for analysis.
 \end{itemize}
 
-\subsubsection{Convergences}
+\tbcsubsubsection{Convergences}
 % identify if there is a convergence (or mutual benefit) from other technologies
-\tbc
 
-\subsubsection{Barriers}
+\tbcsubsubsection{Barriers}
 % identify potential barriers to the development or adoption of this technology
 % identify significant bottlenecks in technology, process, law, policy, regulation, and approaches and potential solutions to these bottlenecks (this detailed assessment would be applied to opportunities you chose to highlight)
-\tbc
 
 %\subsection{ZZ Final Section}
 
@@ -764,5 +804,13 @@ The applications of these small spacecraft are manifold, for example:
 % identify potential barriers to the development or adoption of this technology
 % identify significant bottlenecks in technology, process, law, policy, regulation, and approaches and potential solutions to these bottlenecks (this detailed assessment would be applied to opportunities you chose to highlight)
 
+
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Bibliography}
+\nocite{*}
+\bibliographystyle{abbrvnat}
+\bibliography{space-tp}
 
 \end{document}
