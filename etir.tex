@@ -11,6 +11,7 @@
 \usepackage[top=1.5cm,bottom=2.5cm,right=1.5cm,left=1.5cm]{geometry}
 \usepackage{pdflscape}
 \usepackage[numbers]{natbib}
+\usepackage{makeidx}
 
 \usepackage[urw-garamond]{mathdesign}
 
@@ -26,7 +27,23 @@
 \usetikzlibrary{decorations.pathmorphing} % noisy shapes
 \usetikzlibrary{fit}					% fitting shapes to coordinates
 
-\usepackage[ps2pdf,bookmarks=true,bookmarksopen,bookmarksopenlevel=1,pdfpagelayout=OneColumn]{hyperref}
+\usepackage{url}
+\usepackage[ps2pdf,bookmarks=true,bookmarksopen,bookmarksopenlevel=1,pdfpagelayout=OneColumn,pagebackref=true]{hyperref}
+\usepackage{breakurl}
+
+\renewcommand*{\backref}[1]{}
+\renewcommand*{\backrefalt}[4]{%
+  \ifcase #1 %
+	  (Not cited.)%
+	\or
+	  (Cited on page #2.)%
+	\else
+	  (Cited on pages #2.)%
+	\fi
+}
+
+\makeindex
+
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
     unicode=false,          % non-Latin characters in Acrobat’s bookmarks
@@ -34,7 +51,7 @@
     pdfmenubar=true,        % show Acrobat’s menu?
     pdffitwindow=true,     % window fit to page when opened
     pdfstartview={FitV},    % fits the width of the page to the window
-    pdftitle={Space-TP ETIR 0.1},    % title
+    pdftitle={Space-TP ETIR},    % title
     pdfauthor={SU GSP10 Space Team},     % author
     pdfsubject={Space},   % subject of the document
     pdfcreator={SU GSP10 Space Team},   % creator of the document
@@ -59,11 +76,14 @@
 \begin{document}
 
 \thispagestyle{empty}
+\pdfbookmark[1]{Title Page}{titlepage}
 \begin{tikzpicture}[overlay,remember picture]
-	\node[yshift=1.5cm] at (current page.center) { \includegraphics{etir0.1-page1.eps} };
+	\node[yshift=1.5cm] at (current page.center) { \includegraphics{etir-page1.eps} };
+	\node[yshift=0.3cm] at (current page.center) { \huge version 0.1b };
 \end{tikzpicture}
 
 \newpage
+\pdfbookmark[1]{Table of Contents}{contents}
 \tableofcontents
 
 \newpage
@@ -260,7 +280,7 @@ laser sintering (SLS) uses a laser to selectively fuse together particles of
 build material (be it metal, ceramic, or plastic), building up the object
 layer-by-layer by a process of powder deposition. Without gravity, such
 deposition is impossible. A new technique called Electron Beam Freeform
-Fabrication \cite{ebff-wiki} pioneered at NASA Langley overcomes this
+Fabrication \cite{Taminger2006} pioneered at NASA Langley overcomes this
 challenge by extruding metal directly from a tip. This is a promising technology,
 but is currently too heavy and low-resolution to be practically useful in space.
 However, these are merely problems of engineering that will improve with the
@@ -292,10 +312,10 @@ In the near term, the greatest use of 3D printing in human space missions is pri
 \subsection{Asteroid Mining}
 
 There are not enough raw materials present on planet Earth to sustain even
-today's level of technological growth for the next 20 years\cite{earth-audit}.
+today's level of technological growth for the next 20 years\cite{Cohen2007}.
 Perhaps even more astonishingly, there are not even enough raw materials on the
 planet for the world's current population to live with the quality of life of
-the modern developed world\cite{metal-stocks}.  Thankfully, while these raw
+the modern developed world\cite{Gordon2006}.  Thankfully, while these raw
 materials are scarce on Earth, they are highly abundant in the numerous
 near-Earth asteroids and comets that circulate our solar system.  Hence, it is
 of great importance that a powerful initiative be put in to place to secure the
@@ -610,16 +630,16 @@ with electrial stimulation through MEA. Both methods influence clusters of
 neurons while MEA offers stimulations with a better precision.
 
 Noninvasive neural recordings can help us understand the conditions of
-individual physical and psychological health \cite{rosa-feedback}. Utilizing
+individual physical and psychological health \cite{deCharms2008}. Utilizing
 the real-time noninvasive neural signals recorded, neurofeedback helped the
 subjects to learn how to control over their own brain activation
-\cite{rosa-feedback}. Success can be also found in the treatment of attention
+\cite{deCharms2008}. Success can be also found in the treatment of attention
 deficit disorder, pain control and reduction in anxiety.
 
 Researchers have already demonstrated that we can control computer cursors and
 even robotic arms by decoding neural signals, such as the DEKA arm. Brain waves
 were also demonstrated to be able to classify a subset of words in internal
-speech \cite{rosa-word}.
+speech \cite{Suppes1997}.
 
 \subsubsection{Related Exponential Technologies}
 
@@ -633,7 +653,7 @@ Neuroscience
 Various conditions are currently treated successfully with repetitive TMS, such
 as stroke, Parkinson's disease, depression, dystonia, tinnitus, epilepsy,
 amyotrophic lateral sclerosis, schizophrenia, addiction, obsessive-compulsive
-disorder, Torette's syndrome, and memory dysfunction \cite{rosa-tms}. With
+disorder, Tourette's syndrome, and memory dysfunction \cite{Ridding2007}. With
 improving selectivity, noninvasive neural stimulations are promising to provide
 easier treatments to various neural diseases. Besides health diagnosis, these
 signals can be also acting as lie detector which can prevent potential
@@ -752,7 +772,7 @@ Earth.
 
 The applications of these small spacecraft are manifold, for example:
 \begin{itemize}
-	\item Swarm satellites: Swarms of small inter-communicating satellites
+	\item Swarm satellites: \index{satellites!swarm} Swarms of small inter-communicating satellites
 		surrounding the earth, monitoring natural processes such as global warming
 		or tsunamis, through their own miniaturized sensors or by GNSS
 		reflectometry, or used for earth communication and human/object monitoring.
@@ -821,9 +841,15 @@ The applications of these small spacecraft are manifold, for example:
 
 \clearpage
 \phantomsection
-\addcontentsline{toc}{section}{Bibliography}
+\addcontentsline{toc}{section}{References}
+\pretolerance=80
 \nocite{*}
 \bibliographystyle{abbrvnat}
 \bibliography{space-tp}
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Index}
+\printindex
 
 \end{document}
