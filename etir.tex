@@ -5,6 +5,7 @@
 %\usepackage[ansinew]{inputenc}
 \usepackage{lmodern}	% font definition
 \usepackage{verse}
+\usepackage{datetime}
 
 \usepackage{parskip}
 \usepackage{graphicx}
@@ -79,7 +80,9 @@
 \pdfbookmark[1]{Title Page}{titlepage}
 \begin{tikzpicture}[overlay,remember picture]
 	\node[yshift=1.5cm] at (current page.center) { \includegraphics{etir-page1.eps} };
-	\node[yshift=0.3cm] at (current page.center) { \huge version 0.1b };
+	\node[yshift=0.3cm] at (current page.center) { \huge version 0.1c };
+	\node[yshift=-0.6cm] at (current page.center) { \LARGE \today \hspace{0.2cm} \currenttime };
+	\node[yshift=1.2cm] at (current page.center) { \huge \color{red!70!white} \em DRAFT };
 \end{tikzpicture}
 
 \newpage
