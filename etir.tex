@@ -74,11 +74,13 @@
 
 \setlength{\parskip}{0.3cm plus3mm minus1mm}
 \setlength{\parindent}{0cm}
+\newcommand{\isp}{$I_{\rm sp}$}
 
 %%GLOSSARY
 \newacronym{LEO}{LEO}{Low Earth Orbit}
-\newacronymd{SSTO}{Single Stage to Orbit}{a vehicle which reaches orbit without jettisoning hardware, expending only fluids. The term usually, but not exclusively, refers to reusable vehicles. \nopostdesc}
+\newacronymd{SSTO}{Single Stage to Orbit}{refers to a vehicle which reaches orbit without jettisoning hardware, expending only fluids. The term usually, but not exclusively, refers to reusable vehicles. \nopostdesc}
 \newacronym{ITAR}{ITAR}{International Traffic in Arms Regulations}
+\newglossaryentry{Isp}{text={\isp}, name={specific impulse (\isp)}, first={specific impulse (\isp)}, description={is a metric of rocket (or jet) efficiency; the change in momentum per unit amount of propellant used. The higher the specific impulse, the less propellant is needed to gain a given amount of momentum. For example, the Space Shuttle Main Engine has an \isp of 453s. \nopostdesc}}
 \glossarystyle{list}
 \makeglossaries
 %%END GLOSSARY
@@ -101,7 +103,7 @@
 \pdfbookmark[1]{Title Page}{titlepage}
 \begin{tikzpicture}[overlay,remember picture]
 	\node[yshift=1.5cm] at (current page.center) { \includegraphics{etir-page1.eps} };
-	\node[yshift=0.3cm] at (current page.center) { \huge version 0.1d };
+	\node[yshift=0.3cm] at (current page.center) { \huge version 0.1f };
 	\node[yshift=-0.6cm] at (current page.center) { \LARGE \today \hspace{0.2cm} \currenttime };
 	\node[yshift=1.2cm] at (current page.center) { \huge \color{red!70!white} \em DRAFT };
 \end{tikzpicture}
@@ -150,7 +152,7 @@ possibilities and importance of human space exploration.
 \subsection{Structure of this Report}
 
 This report presents a number of ways to view the future of space exploration
-technology. From an outline of the problem space---derived from the level-1
+technology. From an outline of the problem space---derived from the level--1
 categories of  Getting There, Staying There, Human Exploration, Robotic
 Exploration, Using Space Resources, and Education---to detailed scenarios basic
 on specific technical solutions, we aim to cover the impact of all exponential
@@ -171,8 +173,8 @@ to space is even a good idea.
 % Detailed description of the aspects of the problem being addressed
 \begin{itemize}
 	\item \textbf{Getting There/Transportation}: Cheap access to space is the single most important thing that could happen to drive space exploration and colonization \begin{itemize}
-			\item Earth to \gls{LEO}: Propulsion systems with higher thrust and specific impulse are needed, \gls{SSTO} vehicles would be ideal, and our current systems are largely non-reusable and made from materials that are highly suboptimal from a theoretical point of view.
-				\item \gls{LEO} to Anywhere: Propulsion and braking systems with high specific impulse and low thrust are needed, along with light structure spacecraft, formation flying, radiation shields, etc.
+			\item Earth to \gls{LEO}: Propulsion systems with higher thrust and \gls{Isp} are needed, \gls{SSTO} vehicles would be ideal, and our current systems are largely non-reusable and made from materials that are highly suboptimal from a theoretical point of view.
+			\item \gls{LEO} to Anywhere: Propulsion and braking systems with high \gls{Isp} and low thrust are needed, along with light structure spacecraft, formation flying, radiation shields, etc.
 				\item Raw Materials: As all tools and parts used in space are currently made on Earth, they must be made to high tolerances and sent on relatively low-acceleration launch vehicles to prevent damage; shipping raw materials would not have such problems.
 				\item People: Space travel is still far riskier than commercial aviation, and there are few mechanisms by which spacecraft can fail while keeping the crew alive.
 			\end{itemize}
@@ -283,6 +285,10 @@ the following scale:\newline
 \includegraphics[width=\textwidth]{hm_e.eps}
 
 \section{Exponential Technology Opportunities}
+
+$\ldots$For each of the sections below, we discuss the current state of the art,
+related exponential technologies, potential benefits, convergences with other
+technologies, and potential barriers to adoption.
 
 \secttoc
 
