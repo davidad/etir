@@ -12,6 +12,7 @@
 \usepackage[top=1.5cm,bottom=2.5cm,right=1.5cm,left=1.5cm]{geometry}
 \usepackage{pdflscape}
 \usepackage[numbers]{natbib}
+\usepackage{minitoc}
 
 \usepackage[urw-garamond]{mathdesign}
 
@@ -107,6 +108,8 @@
 
 \newpage
 \pdfbookmark[1]{Table of Contents}{contents}
+\dosecttoc
+\renewcommand{\stctitle}{Contents of this Section}
 \tableofcontents
 
 \newpage
@@ -280,6 +283,8 @@ the following scale:\newline
 \includegraphics[width=\textwidth]{hm_e.eps}
 
 \section{Exponential Technology Opportunities}
+
+\secttoc
 
 \subsection{3D Printing in Space}
 
