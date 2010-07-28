@@ -29,10 +29,10 @@
 \usetikzlibrary{fit}					% fitting shapes to coordinates
 
 \usepackage{url}
-\usepackage[ps2pdf,bookmarks=true,bookmarksopen,bookmarksopenlevel=1,pdfpagelayout=OneColumn,pagebackref=true]{hyperref}
+\usepackage[ps2pdf,breaklinks=true,bookmarks=true,bookmarksopen,bookmarksopenlevel=1,pdfpagelayout=OneColumn,pagebackref=true]{hyperref}
 \usepackage{breakurl}
 \usepackage{makeidx}
-\usepackage{glossaries}
+\usepackage[acronym]{glossaries}
 
 \renewcommand*{\backref}[1]{}
 \renewcommand*{\backrefalt}[4]{%
@@ -77,10 +77,17 @@
 \newcommand{\isp}{$I_{\rm sp}$}
 
 %%GLOSSARY
+\newacronymd{CLLSS}{Closed-Loop Life Support Systems}{are life support systems which reuse 100\% of their waste resources, with the exception of waste energy}
+\newacronymd{COSPAR}{Committee on Space Research}{COSPAR promotes international scientific research in space, and provides an open forum for the disucssion of problems related to space science (for instance, organizing conferences on planetary protection policy).}
 \newacronym{LEO}{LEO}{Low Earth Orbit}
 \newacronymd{SSTO}{Single Stage to Orbit}{refers to a vehicle which reaches orbit without jettisoning hardware, expending only fluids. The term usually, but not exclusively, refers to reusable vehicles. \nopostdesc}
-\newacronym{ITAR}{ITAR}{International Traffic in Arms Regulations}
-\newglossaryentry{Isp}{text={\isp}, name={specific impulse (\isp)}, first={specific impulse (\isp)}, description={is a metric of rocket (or jet) efficiency; the change in momentum per unit amount of propellant used. The higher the specific impulse, the less propellant is needed to gain a given amount of momentum. For example, the Space Shuttle Main Engine has an \isp of 453s. \nopostdesc}}
+\newacronymd{ITAR}{International Traffic in Arms Regulations}{a set of federal United States regulations that restrict the international trade of items and information which is considered by the federal government to be ``munitions,'' including encryption technology and space technology}
+\newacronymd{ISRU}{In-Situ Resource Utilization}{refers to the usage of local resources, especially the local usage of resources found in space, as opposed to the transport of Earth resources into space or vice versa. \nopostdesc}
+\newacronym{SLS}{SLS}{Selective Laser Sintering}
+\newacronym{EBFF}{EBFF}{Electron Beam Freeform Fabrication}
+
+\newglossaryentry{Isp}{text={\isp}, name={specific impulse (\isp)}, first={specific impulse (\isp)}, description={is a metric of rocket (or jet) efficiency; the change in momentum per unit amount of propellant used. (This works out to an SI unit of seconds.) The higher the specific impulse, the less propellant is needed to gain a given amount of momentum. For example, the Space Shuttle Main Engine has an \isp of 453s. \nopostdesc}}
+\newglossaryentry{gyrotron}{text={gyrotron}, name={gyrotron}, description={a type of high-powered microwave transmitter}}
 \glossarystyle{list}
 \makeglossaries
 %%END GLOSSARY
@@ -102,8 +109,8 @@
 \thispagestyle{empty}
 \pdfbookmark[1]{Title Page}{titlepage}
 \begin{tikzpicture}[overlay,remember picture]
-	\node[yshift=1.5cm] at (current page.center) { \includegraphics{etir-page1.eps} };
-	\node[yshift=0.3cm] at (current page.center) { \huge version 0.1f };
+	\node[yshift=1.5cm] at (current page.center) { \includegraphics{etir-page1} };
+	\node[yshift=0.3cm] at (current page.center) { \huge version 0.2 };
 	\node[yshift=-0.6cm] at (current page.center) { \LARGE \today \hspace{0.2cm} \currenttime };
 	\node[yshift=1.2cm] at (current page.center) { \huge \color{red!70!white} \em DRAFT };
 \end{tikzpicture}
@@ -181,10 +188,10 @@ to space is even a good idea.
 	\item \textbf{Staying There} \begin{itemize}
 			\item \textbf{Research Labs}: Some research is not possible in the Earth's gravity.
 			\item \textbf{Permanent coloines} \begin{itemize}
-					\item In Low Earth Orbit: Need reliable infrastructure and life support
+					\item In \gls{LEO}: Need reliable infrastructure and life support
 					\item On the Moon: Desire robotics for automated resource extraction, construction and maintenance.
 				\end{itemize}
-			\item \textbf{Funding/business models}: Need a space-based economy that doesn't rely on Earth (complete ISRU for an entire society).
+			\item \textbf{Funding/business models}: Need a space-based economy that doesn't rely on Earth (complete \gls{ISRU} for an entire society).
 			\item \textbf{Social and political structures}: Ensuring that citizens of space societies are safe and granted basic rights. Negotiations between space colonies and space$\leftrightarrow$Earth.
 			\item \textbf{Ownership}: How shall it be decided who owns portions of space, or resources brought back from space?
 			\item \textbf{Speciation/Human mutation}: Societies colonizing space for a long period of time will eventually become a different species from those on Earth. This raises many ethical and political issues.
@@ -206,7 +213,7 @@ to space is even a good idea.
 			\item Better materials: Need materials that are stronger, lighter, and easy to develop/replicate. Weak materials fall apart in space's harsh environments, heavy materials increase transit time, and rare materials limit product line.
 		\end{itemize}
 	\item \textbf{Human Exploration} \begin{itemize}
-			\item \textbf{Closed-Loop Life Support Systems (CLLSS)} \begin{itemize}
+			\item \textbf{\gls{CLLSS}} \begin{itemize}
 					\item Food: Need for a way to generate a complete, well rounded diet with minimal input and output - ideally 100\% closed loop.
 					\item Water: Need for sophisticated waste and grey-water systems for closed-loop water usage.
 					\item Waste: Design waste out from the beginning - systems should operate in completely closed loops for matter and energy.
@@ -228,8 +235,8 @@ to space is even a good idea.
 			\item \textbf{Energy Harvesting and Beaming}: Need a way to harvest resources and energy from the massive array of sources available in space. Asteroids and solar are likely the two most impactful.  As far as beaming goes, a system is needed to transmit the energy from space to the ground.  In the case of asteroids, transport of physical resources is needed.
 			\item \textbf{Asteroid Mining}: Need a cost-effective way to reach near-earth asteroids, and a means to map, identify and choose which to go to. Also, desire automated mining techniques, self-replicating robots for networked mining swarms, mesh networks, autonomous behavior, and 3D printing for tool generation and maintenance
 			\item \textbf{Political Challenges} \begin{itemize}
-					\item ITAR restrictions: Need a framework for international cooperation in the private sector
-					\item Space treaties:  Need COSPAR regulations - sample return restrictions and planetary protection guidelines. There is some international disagreement.
+					\item \gls{ITAR} restrictions: Need a framework for international cooperation in the private sector
+					\item Space treaties:  Need \gls{COSPAR} regulations - sample return restrictions and planetary protection guidelines. There is some international disagreement.
 					\item Fueling: Need for an international agreement that takes into consideration peaceful use, human safety, and waste mechanisms related to the extraction and utilization of fuel and nuclear energy
 					\item Real Estate: No state has a claim to land rights in space; can private entities?
 					\item Public/private partnerships: Need to exploit the full potential of spin-in and spin-off technologies. Space is more closed than other sectors. There are also underdeveloped marketing opportunities.
@@ -272,17 +279,17 @@ The qualitative analysis of the relative importance of each of the solution
 domains is presented in the form of a series of \emph{heatmaps}, according to
 the following scale:\newline
 
-\includegraphics[width=4.2in]{Heatmapscale.eps}
+\includegraphics[width=4.2in]{Heatmapscale}
 \newline
 
 \newpage
 
-\includegraphics[width=\textwidth]{hm_gt.eps}
-\includegraphics[width=\textwidth]{hm_st.eps}
-\includegraphics[width=\textwidth]{hm_re.eps}
-\includegraphics[width=\textwidth]{hm_he.eps}
-\includegraphics[width=\textwidth]{hm_usr.eps}
-\includegraphics[width=\textwidth]{hm_e.eps}
+\includegraphics[width=\textwidth]{hm_gt}
+\includegraphics[width=\textwidth]{hm_st}
+\includegraphics[width=\textwidth]{hm_re}
+\includegraphics[width=\textwidth]{hm_he}
+\includegraphics[width=\textwidth]{hm_usr}
+\includegraphics[width=\textwidth]{hm_e}
 
 \section{Exponential Technology Opportunities}
 
@@ -309,16 +316,16 @@ Today's 3D printers here on Earth can fabricate objects made of some metals,
 ceramics, and plastics, and the palette of materials is expanding
 exponentially.  There is even one 3D printer currently in production which can
 print objects made of more than one material. However, most current 3D printing
-mechanisms will not work in microgravity environments. For example, selective
-laser sintering (SLS) uses a laser to selectively fuse together particles of
-build material (be it metal, ceramic, or plastic), building up the object
-layer-by-layer by a process of powder deposition. Without gravity, such
-deposition is impossible. A new technique called Electron Beam Freeform
-Fabrication \cite{Taminger2006} pioneered at NASA Langley overcomes this
-challenge by extruding metal directly from a tip. This is a promising technology,
-but is currently too heavy and low-resolution to be practically useful in space.
-However, these are merely problems of engineering that will improve with the
-exponential increase in the strength of materials.
+mechanisms will not work in microgravity environments. For example, \gls*{SLS}
+uses a laser to selectively fuse together particles of build material (be it
+metal, ceramic, or plastic), building up the object layer-by-layer by a process
+of powder deposition. Without gravity, such deposition is impossible. A new
+technique called \gls*{EBFF} \cite{Taminger2006}
+pioneered at NASA Langley overcomes this challenge by extruding metal directly
+from a tip. This is a promising technology, but is currently too heavy and
+low-resolution to be practically useful in space.  However, these are merely
+problems of engineering that will improve with the exponential increase in the
+strength of materials.
 
 \subsubsection{Related Exponential Technologies}
 
@@ -424,13 +431,13 @@ propellant.
 
 The microwave system will decrease in price as the price per megawatt decreases
 over time.  This price will decrease over time as the maximum power output of
-each individual gyroton (high-power microwave transmitter) increases over time,
-and the cost of each gyrotron decreases over time.  The maximum power output of
-each individual gyroton will increase over time as superconductor performance
-increases and as computing power increases, insofar as computing power
-influences the control dynamical systems in the gyrotron.  Gyrotons will get
-cheaper as the 3D printing of materials gets cheaper over time and 3D printing
-technology increases in capability.  Also, the gyroton cost will decrease as
+each individual \gls{gyrotron} increases over time, and the cost of each
+gyrotron decreases over time.  The maximum power output of each individual
+gyroton will increase over time as superconductor performance increases and as
+computing power increases, insofar as computing power influences the control
+dynamical systems in the gyrotron.  Gyrotons will get cheaper as the 3D
+printing of materials gets cheaper over time and 3D printing technology
+increases in capability.  Also, the gyroton cost will decrease as
 superconductors get cheaper and more effective.  The materials required for the
 diamond window component will also decrease over time.  Control dynamical
 systems will become cheaper as computing power gets cheaper and also as 3D
