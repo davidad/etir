@@ -12,7 +12,6 @@
 \usepackage[top=1.5cm,bottom=2.5cm,right=1.5cm,left=1.5cm]{geometry}
 \usepackage{pdflscape}
 \usepackage[numbers]{natbib}
-\usepackage{makeidx}
 
 \usepackage[urw-garamond]{mathdesign}
 
@@ -31,6 +30,8 @@
 \usepackage{url}
 \usepackage[ps2pdf,bookmarks=true,bookmarksopen,bookmarksopenlevel=1,pdfpagelayout=OneColumn,pagebackref=true]{hyperref}
 \usepackage{breakurl}
+\usepackage{makeidx}
+\usepackage{glossaries}
 
 \renewcommand*{\backref}[1]{}
 \renewcommand*{\backrefalt}[4]{%
@@ -42,8 +43,6 @@
 	  (Cited on pages #2.)%
 	\fi
 }
-
-\makeindex
 
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
@@ -70,9 +69,30 @@
 \newcommand{\tbc}{\begin{center} \todo{to be completed} \end{center}}
 \newcommand{\tbcsubsubsection}[1]{ \refstepcounter{subsubsection}%
   \subsubsection*{\thesubsubsection \quad #1} \tbc}
+\newcommand{\newacronymd}[3]{\newglossaryentry{#1}{type=\acronymtype,name={#1},description={#2: #3},text={#1},first={#2 (#1)},plural={#1s},firstplural={#2s (#1s)}}}
 
 \setlength{\parskip}{0.3cm plus3mm minus1mm}
 \setlength{\parindent}{0cm}
+
+%%GLOSSARY
+\newacronym{LEO}{LEO}{Low Earth Orbit}
+\newacronymd{SSTO}{Single Stage to Orbit}{a vehicle which reaches orbit without jettisoning hardware, expending only fluids. The term usually, but not exclusively, refers to reusable vehicles. \nopostdesc}
+\newacronym{ITAR}{ITAR}{International Traffic in Arms Regulations}
+\glossarystyle{list}
+\makeglossaries
+%%END GLOSSARY
+% rubber: rules rubber.ini
+% rubber: onchange etir.glo '''makeglossaries etir'''
+% rubber: watch etir.glo
+% rubber: depend etir.glo
+% rubber: clean etir.glg
+% rubber: clean etir.glo
+% rubber: clean etir.gls
+% rubber: clean etir.ist
+% rubber: clean etir.out
+% rubber: clean etir.tdo
+
+\makeindex
 
 \begin{document}
 
@@ -80,7 +100,7 @@
 \pdfbookmark[1]{Title Page}{titlepage}
 \begin{tikzpicture}[overlay,remember picture]
 	\node[yshift=1.5cm] at (current page.center) { \includegraphics{etir-page1.eps} };
-	\node[yshift=0.3cm] at (current page.center) { \huge version 0.1c };
+	\node[yshift=0.3cm] at (current page.center) { \huge version 0.1d };
 	\node[yshift=-0.6cm] at (current page.center) { \LARGE \today \hspace{0.2cm} \currenttime };
 	\node[yshift=1.2cm] at (current page.center) { \huge \color{red!70!white} \em DRAFT };
 \end{tikzpicture}
@@ -104,7 +124,7 @@
 		and the water seems inviting \\
 	\end{altverse}
 \end{verse}
-\attrib{\textbf{-- Carl Sagan}, \textit{``A Glorious Dawn''}}
+\attrib{\textbf{-- Carl Sagan\index{Sagan, Carl}}, \textit{``A Glorious Dawn''}}
 \vspace{20pt}
 
 Humanity is presently a one-planet species. Although we have sent
@@ -148,8 +168,8 @@ to space is even a good idea.
 % Detailed description of the aspects of the problem being addressed
 \begin{itemize}
 	\item \textbf{Getting There/Transportation}: Cheap access to space is the single most important thing that could happen to drive space exploration and colonization \begin{itemize}
-				\item Earth to LEO: Propulsion systems with higher thrust and specific impulse are needed, single stage to orbit (SSTO) vehicles would be ideal, and our current systems are largely non-reusable and made from materials that are highly suboptimal from a theoretical point of view.
-				\item LEO to Anywhere: Propulsion and braking systems with high specific impulse and low thrust are needed, along with light structure spacecraft, formation flying, radiation shields, etc.
+			\item Earth to \gls{LEO}: Propulsion systems with higher thrust and specific impulse are needed, \gls{SSTO} vehicles would be ideal, and our current systems are largely non-reusable and made from materials that are highly suboptimal from a theoretical point of view.
+				\item \gls{LEO} to Anywhere: Propulsion and braking systems with high specific impulse and low thrust are needed, along with light structure spacecraft, formation flying, radiation shields, etc.
 				\item Raw Materials: As all tools and parts used in space are currently made on Earth, they must be made to high tolerances and sent on relatively low-acceleration launch vehicles to prevent damage; shipping raw materials would not have such problems.
 				\item People: Space travel is still far riskier than commercial aviation, and there are few mechanisms by which spacecraft can fail while keeping the crew alive.
 			\end{itemize}
@@ -849,6 +869,11 @@ The applications of these small spacecraft are manifold, for example:
 \nocite{*}
 \bibliographystyle{abbrvnat}
 \bibliography{space-tp}
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Glossary}
+\printglossaries
 
 \clearpage
 \phantomsection
