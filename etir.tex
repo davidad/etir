@@ -111,7 +111,7 @@
 \pdfbookmark[1]{Title Page}{titlepage}
 \begin{tikzpicture}[overlay,remember picture]
 	\node[yshift=1.5cm] at (current page.center) { \includegraphics{etir-page1} };
-	\node[yshift=0.3cm] at (current page.center) { \huge version 0.3 };
+	\node[yshift=0.3cm] at (current page.center) { \huge version 0.foobar };
 	\node[yshift=-0.6cm] at (current page.center) { \LARGE \today \hspace{0.2cm} \currenttime };
 	\node[yshift=1.2cm] at (current page.center) { \huge \color{red!70!white} \em DRAFT };
 \end{tikzpicture}
@@ -167,10 +167,10 @@ public about the possibilities and importance of human space exploration.
 
 \todo{This is incomplete, represents scope}
 
-\todo{Example about how to parse this graph}
+\todo{Example about how to parse this graph---narrative threads run bottom-to-top}
 
 \begin{center}
-\begin{tikzpicture}[scale=0.42,>=stealth]
+\begin{tikzpicture}[scale=0.41,>=stealth]
 	\tikzstyle{stdbox} = [draw,shape=rectangle,minimum size=1em,inner xsep=0.25em,inner ysep=0.25em,font=\footnotesize,text badly centered];
 	\tikzstyle{emph} = [font=\small\bfseries,very thick];
 	\colorlet{challenge}{red}
@@ -185,9 +185,9 @@ digraph G {
 	node [style="challenge"];
 	getting_there [label="Getting There"];
 	staying_there [label="Staying There"];
-	human_exploration [label="Human Exploration"];
+	human_exploration [label="Human Exploration",style="challenge,xshift=0.4cm"];
 	resources [label="Space Resources"];
-	robotic_exploration [label="Robotic Exploration",style="challenge,yshift=1cm"];
+	robotic_exploration [label="Robotic Exploration",style="challenge,xshift=0.2cm"];
 	science [label="Space Science"];
 	education [label="Space Evangelism"];
 	backup [label="Insuring Humanity"];
@@ -254,6 +254,20 @@ digraph G {
 
 	asteroid_mining [label="Asteroid Mining"];
 	asteroid_mining -> resources;
+	cats -> asteroid_mining;
+	metal_digesters [label="Metal Digesters?"];
+	bio -> metal_digesters;
+	metal_digesters -> asteroid_mining;
+
+	auto_asteroid [label="Autonomous Asteroid Explorers",style="stdbox,text width=2.6cm"];
+	ai -> auto_asteroid;
+	auto_asteroid -> robotic_exploration;
+	auto_asteroid -> asteroid_mining;
+
+	ipip [label="Interplanetary Internet"];
+	computing -> ipip;
+	ipip -> auto_asteroid;
+	//ipip -> space_science;
 
 	spider_silk [label="Spider Silk"];
 	spider_silk -> structural_materials;
