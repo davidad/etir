@@ -1,3 +1,4 @@
+%& -shell-escape
 \documentclass[letter,11pt]{article}
 
 \usepackage[english]{babel}
@@ -16,6 +17,7 @@
 
 \usepackage[urw-garamond]{mathdesign}
 
+\usepackage{dot2texi}
 \usepackage{tikz}
 
 %%%<
@@ -25,8 +27,7 @@
 %\setlength\PreviewBorder{5pt}%
 %%%>
 
-\usetikzlibrary{decorations.pathmorphing} % noisy shapes
-\usetikzlibrary{fit}					% fitting shapes to coordinates
+\usetikzlibrary{arrows,shapes}
 
 \usepackage{url}
 \usepackage[ps2pdf,breaklinks=true,bookmarks=true,bookmarksopen,bookmarksopenlevel=1,pdfpagelayout=OneColumn,pagebackref=true]{hyperref}
@@ -81,7 +82,7 @@
 \newacronymd{COSPAR}{Committee on Space Research}{COSPAR promotes international scientific research in space, and provides an open forum for the disucssion of problems related to space science (for instance, organizing conferences on planetary protection policy).}
 \newacronym{LEO}{LEO}{Low Earth Orbit}
 \newacronymd{SSTO}{Single Stage to Orbit}{refers to a vehicle which reaches orbit without jettisoning hardware, expending only fluids. The term usually, but not exclusively, refers to reusable vehicles. \nopostdesc}
-\newacronymd{ITAR}{International Traffic in Arms Regulations}{a set of federal United States regulations that restrict the international trade of items and information which is considered by the federal government to be ``munitions,'' including encryption technology and space technology}
+\newacronymd{ITAR}{International Traffic in Arms Regulations}{a set of United States federal regulations that restrict the international trade of items and information which is considered by the federal government to be ``munitions,'' including encryption technology and space technology}
 \newacronymd{ISRU}{In-Situ Resource Utilization}{refers to the usage of local resources, especially the local usage of resources found in space, as opposed to the transport of Earth resources into space or vice versa. \nopostdesc}
 \newacronym{SLS}{SLS}{Selective Laser Sintering}
 \newacronym{EBFF}{EBFF}{Electron Beam Freeform Fabrication}
@@ -110,7 +111,7 @@
 \pdfbookmark[1]{Title Page}{titlepage}
 \begin{tikzpicture}[overlay,remember picture]
 	\node[yshift=1.5cm] at (current page.center) { \includegraphics{etir-page1} };
-	\node[yshift=0.3cm] at (current page.center) { \huge version 0.2 };
+	\node[yshift=0.3cm] at (current page.center) { \huge version 0.3 };
 	\node[yshift=-0.6cm] at (current page.center) { \LARGE \today \hspace{0.2cm} \currenttime };
 	\node[yshift=1.2cm] at (current page.center) { \huge \color{red!70!white} \em DRAFT };
 \end{tikzpicture}
@@ -147,23 +148,114 @@ us, in terms of both matter and energy. Second, it makes us vulnerable
 to total destruction as a species, should a catastrophe of planetary
 scale occur.
 
-This report focuses on applications of exponential technologies that
-may facilitate the eventual establishment of a permanent human
-presence in space. These steps include the development of technologies
-to reduce the barriers to entry into space, technologies that may be
-needed to remain in space indefinitely (while also being useful on
-Earth), practical strategies to use resources which are off Earth, and
-means to educate, excite, and inspire the general public about the
-possibilities and importance of human space exploration.
+This report focuses on applications of exponential technologies that may
+facilitate the eventual establishment of a permanent human presence in space.
+These steps include the development of technologies to reduce the barriers to
+entry into space, technologies that may be needed to remain in space
+indefinitely (while also being useful on Earth), practical strategies to use
+resources which are off Earth, transformative changes in the business of space
+science and exploration, and means to educate, excite, and inspire the general
+public about the possibilities and importance of human space exploration.
 
 \subsection{Structure of this Report}
 
-This report presents a number of ways to view the future of space exploration
-technology. From an outline of the problem space---derived from the level--1
-categories of  Getting There, Staying There, Human Exploration, Robotic
-Exploration, Using Space Resources, and Education---to detailed scenarios basic
-on specific technical solutions, we aim to cover the impact of all exponential
-technologies on space exploration.
+\todo{TODO: Graphical diagram explaining structure of final report}
+
+\todo{This part of the document is under heavy construction. This is the temporary home of the digraph.}
+
+\subsubsection{Digraph}
+
+\todo{This is incomplete, represents scope}
+
+\todo{Example about how to parse this graph}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.45,>=stealth]
+	\tikzstyle{stdbox} = [draw,shape=rectangle,minimum size=1em,inner xsep=0.25em,inner ysep=0.25em,font=\footnotesize];
+	\tikzstyle{emph} = [font=\small\bfseries,very thick];
+	\colorlet{challenge}{red}
+	\colorlet{exptech}{green}
+	\tikzstyle{challenge} = [stdbox,draw=challenge,emph,fill=challenge!50];
+	\tikzstyle{exptech} = [stdbox,draw=exptech,emph,fill=exptech!50];
+\begin{dot2tex}[codeonly,dot,tikz]
+digraph G {
+  ratio=1;
+	rankdir=BT;
+	//% GRAND CHALLENGES
+	node [style="challenge"];
+	getting_there [label="Getting There"];
+	staying_there [label="Staying There"];
+	human_exploration [label="Human Exploration"];
+	resources [label="Space Resources"];
+	robotic_exploration [label="Robotic Exploration"];
+	science [label="Space Science"];
+	education [label="Space Evangelism/Education"];
+	backup [label="Insuring Humanity"];
+
+	edge [style="thick,color=challenge"];
+	human_exploration -> staying_there; //[dir="none"];
+	robotic_exploration -> science;
+	robotic_exploration -> resources;
+	staying_there -> backup; //[dir="none"];
+
+	edge [style="semithick,color=challenge!70!black"];
+	resources -> staying_there; //[dir="none"];
+  getting_there -> resources;
+	human_exploration -> science; //[dir="none"];
+	getting_there -> education;
+	getting_there -> robotic_exploration;
+	getting_there -> human_exploration;
+
+  //% EXPONENTIAL TECHNOLOGIES
+	node [style="exptech"];
+	nano [label="Nanotechnology"];
+	bio [label="Biotechnology"];
+	neuro [label="Neurotechnology"];
+	ai [label="AI & Robotics"];
+	computing [label="Networks & Computing"];
+
+	edge [style="thick,color=exptech"];
+	computing -> ai;
+	computing -> neuro;
+	ai -> neuro;
+	computing -> bio;
+	ai -> bio;
+	bio -> nano;
+	bio -> neuro;
+	nano -> computing;
+
+  node [texmode="raw",style="stdbox"];
+	edge [style=semithick];
+  cats [label="CATS"];
+	cats -> getting_there;
+	beam_power [label="Beam Power"];
+	beam_power -> cats;
+	heat_exchanger -> beam_power;
+	heat_exchanger [label="Heat Exchanger"];
+	structural_materials [label="Structural Materials"];
+	thermal_materials [label="Thermal Materials"];
+	nano -> thermal_materials;
+	nano -> structural_materials;
+	thermal_materials -> heat_exchanger;
+  structural_materials -> light_lv;
+	light_lv [label="Lighter Launch Vehicles"];
+	light_lv -> cats;
+	light_lv -> ssto;
+	ssto [label="Single-Stage to Orbit"];
+  ssto -> cats;
+
+	psychmon [label="Psych. Monitoring"];
+	neuro -> psychmon;
+	psychmon -> human_exploration;
+	rubisco [label="RubisCO Enzyme"];
+	bio -> rubisco;
+	terraforming [label="Terraforming"];
+	rubisco -> terraforming
+	terraforming -> staying_there
+}
+\end{dot2tex}
+\end{tikzpicture}
+\end{center}
 
 \section{State of the Problem Space}
 
@@ -235,7 +327,7 @@ to space is even a good idea.
 			\item \textbf{Energy Harvesting and Beaming}: Need a way to harvest resources and energy from the massive array of sources available in space. Asteroids and solar are likely the two most impactful.  As far as beaming goes, a system is needed to transmit the energy from space to the ground.  In the case of asteroids, transport of physical resources is needed.
 			\item \textbf{Asteroid Mining}: Need a cost-effective way to reach near-earth asteroids, and a means to map, identify and choose which to go to. Also, desire automated mining techniques, self-replicating robots for networked mining swarms, mesh networks, autonomous behavior, and 3D printing for tool generation and maintenance
 			\item \textbf{Political Challenges} \begin{itemize}
-					\item \gls{ITAR} restrictions: Need a framework for international cooperation in the private sector
+					\item Security restrictions such as \gls{ITAR}: Need a framework for international cooperation in the private sector
 					\item Space treaties:  Need \gls{COSPAR} regulations - sample return restrictions and planetary protection guidelines. There is some international disagreement.
 					\item Fueling: Need for an international agreement that takes into consideration peaceful use, human safety, and waste mechanisms related to the extraction and utilization of fuel and nuclear energy
 					\item Real Estate: No state has a claim to land rights in space; can private entities?
@@ -247,16 +339,21 @@ to space is even a good idea.
 
 %\subsection{State of the Art}
 
-%\subsection{Exponential Technology Areas}
+\subsection{Exponential Technology Areas}
 % Summary list\ldotsof what you considered, based on the SU tracks, for example
+
+In this report, we will illustrate a number of opportunities to address the
+above problems with exponential technologies. This section serves as a brief
+overview to each of the exponential technology areas.
+
+\input{et-overview}
 
 \subsection{Classification of opportunities}
 
-We offer a brief taxonomy of the problems that exponential technologies
-need to help overcome during the next three decades in order to
-facilitate the exploration and colonization of space. For each area in
-this taxonomy, we explore the role that seven different domains  will play in the solution
-to these problems.
+We offer a brief taxonomy of the problems that exponential technologies need to
+help overcome during the next three decades in order to facilitate the
+exploration and colonization of space. For each area in this taxonomy, we
+explore the role that each exponential technology might play.
 
 \begin{enumerate}
 	\item AI and Robotics \item   Biotechnology \item  Nanotechnology and Material Sciences \item  Information Technology and Networking \item  Neurotechnology and Medicine \item  Policy, Law and Ethics \item Entrepreneurship 
