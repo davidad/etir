@@ -1,4 +1,3 @@
-%& -shell-escape
 \documentclass[letter,11pt]{article}
 
 \usepackage[english]{babel}
@@ -170,8 +169,8 @@ public about the possibilities and importance of human space exploration.
 \todo{Example about how to parse this graph}
 
 \begin{center}
-\begin{tikzpicture}[scale=0.45,>=stealth]
-	\tikzstyle{stdbox} = [draw,shape=rectangle,minimum size=1em,inner xsep=0.25em,inner ysep=0.25em,font=\footnotesize];
+\begin{tikzpicture}[scale=0.42,>=stealth]
+	\tikzstyle{stdbox} = [draw,shape=rectangle,minimum size=1em,inner xsep=0.25em,inner ysep=0.25em,font=\footnotesize,text badly centered];
 	\tikzstyle{emph} = [font=\small\bfseries,very thick];
 	\colorlet{challenge}{red}
 	\colorlet{exptech}{green}
@@ -179,7 +178,7 @@ public about the possibilities and importance of human space exploration.
 	\tikzstyle{exptech} = [stdbox,draw=exptech,emph,fill=exptech!50];
 \begin{dot2tex}[codeonly,dot,tikz]
 digraph G {
-  ratio=1;
+  ratio=1.2;
 	rankdir=BT;
 	//% GRAND CHALLENGES
 	node [style="challenge"];
@@ -187,9 +186,9 @@ digraph G {
 	staying_there [label="Staying There"];
 	human_exploration [label="Human Exploration"];
 	resources [label="Space Resources"];
-	robotic_exploration [label="Robotic Exploration"];
+	robotic_exploration [label="Robotic Exploration",style="challenge,yshift=1cm"];
 	science [label="Space Science"];
-	education [label="Space Evangelism/Education"];
+	education [label="Space Evangelism"];
 	backup [label="Insuring Humanity"];
 
 	edge [style="thick,color=challenge"];
@@ -216,8 +215,7 @@ digraph G {
 
 	edge [style="thick,color=exptech"];
 	computing -> ai;
-	computing -> neuro;
-	ai -> neuro;
+	neuro -> ai [dir="both"];
 	computing -> bio;
 	ai -> bio;
 	bio -> nano;
@@ -252,6 +250,19 @@ digraph G {
 	terraforming [label="Terraforming"];
 	rubisco -> terraforming
 	terraforming -> staying_there
+
+	asteroid_mining [label="Asteroid Mining"];
+	asteroid_mining -> resources;
+
+	spider_silk [label="Spider Silk"];
+	spider_silk -> structural_materials;
+	bio -> spider_silk;
+	stem_cell_min [label="Stem Cell Anti-Demineralisation",style="stdbox,text width=2.6cm"];
+	bio -> stem_cell_min;
+	stem_cell_min -> human_exploration;
+	bioreactors [label="Bioreactors"];
+	bioreactors -> terraforming;
+	bio -> bioreactors;
 }
 \end{dot2tex}
 \end{tikzpicture}
