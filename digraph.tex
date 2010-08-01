@@ -1,0 +1,140 @@
+\begin{center}
+\begin{tikzpicture}[scale=0.32,>=stealth]
+	\tikzstyle{stdbox} = [draw,shape=rectangle,minimum size=1em,inner xsep=0.25em,inner ysep=0.25em,font=\tiny,text badly centered];
+	\tikzstyle{emph} = [font=\tiny\bfseries,thick];
+	\colorlet{challenge}{red}
+	\colorlet{exptech}{green}
+	\tikzstyle{challenge} = [stdbox,draw=challenge,emph,fill=challenge!50];
+	\tikzstyle{exptech} = [stdbox,draw=exptech,emph,fill=exptech!50];
+\begin{dot2tex}[codeonly,dot,tikz]
+digraph G {
+  ratio=1.1;
+	rankdir=BT;
+	//% GRAND CHALLENGES
+	node [style="challenge"];
+	getting_there [label="Getting There"];
+	staying_there [label="Staying There"];
+	human_exploration [label="Human Exploration",style="challenge"];
+	resources [label="Space Resources"];
+	robotic_exploration [label="Robotic Exploration",style="challenge"];
+	science [label="Space Science"];
+	education [label="Space Evangelism"];
+	backup [label="Insuring Humanity"];
+
+	edge [style="thick,color=challenge"];
+	human_exploration -> staying_there; //[dir="none"];
+	robotic_exploration -> science;
+	robotic_exploration -> resources;
+	staying_there -> backup; //[dir="none"];
+
+	edge [style="semithick,color=challenge!70!black"];
+	resources -> staying_there; //[dir="none"];
+  getting_there -> resources;
+	human_exploration -> science; //[dir="none"];
+	getting_there -> education;
+	getting_there -> robotic_exploration;
+	getting_there -> human_exploration;
+
+  //% EXPONENTIAL TECHNOLOGIES
+	node [style="exptech"];
+	nano [label="Nanotechnology"];
+	bio [label="Biotechnology"];
+	neuro [label="Neurotechnology"];
+	ai [label="AI & Robotics"];
+	computing [label="Networks & Computing"];
+
+	edge [style="thick,color=exptech"];
+	computing -> ai;
+	neuro -> ai [dir="both"];
+	computing -> bio;
+	ai -> bio;
+	bio -> nano;
+	bio -> neuro;
+	nano -> computing;
+
+  node [texmode="raw",style="stdbox"];
+	edge [style=semithick];
+  cats [label="CATS"]
+	cats -> getting_there;
+	//% beam_power [label="Beam Power"];
+	//% beam_power -> cats;
+	//% heat_exchanger -> beam_power;
+	//% heat_exchanger [label="Heat Exchanger"];
+	structural_materials [label="Structural Materials"];
+	thermal_materials [label="Thermal Materials"];
+	nano -> thermal_materials;
+	nano -> structural_materials;
+	//% thermal_materials -> heat_exchanger;
+	stirling [label="Stirling Engine"];
+	thermal_materials -> stirling;
+	energy [label="Space Energy"];
+	stirling -> energy;
+	energy -> resources;
+	pv [label="Photovoltaics"];
+	sbsp [label="\pbox{2.5cm}{Space-Based Solar Power}"];
+	sbsp -> energy;
+	pv -> sbsp;
+	nano -> pv;
+  structural_materials -> light_lv;
+	light_lv [label="Lighter Launch Vehicles",style="stdbox,text width=2.4cm"];
+	light_lv -> cats;
+	//% light_lv -> ssto;
+	//% ssto [label="Single-Stage to Orbit"];
+  //% ssto -> cats;
+
+	//% psychmon [label="Psych. Monitoring"];
+	//% neuro -> psychmon;
+	//% psychmon -> human_exploration;
+	rubisco [label="RubisCO Enzyme"];
+	bio -> rubisco;
+	terraforming [label="Terraforming"];
+	rubisco -> terraforming
+	terraforming -> staying_there
+
+	suit [label="Nanotech Space Suits"];
+	nano -> suit;
+	suit -> human_exploration;
+
+	asteroid_mining [label="Asteroid Mining"];
+	asteroid_mining -> resources;
+	cats -> asteroid_mining;
+	//% metal_digesters [label="Metal Digesters?"];
+	//% bio -> metal_digesters;
+	//% metal_digesters -> asteroid_mining;
+
+	aisyn [label="AI\&SynBio"];
+	ai -> aisyn;
+	bio -> aisyn;
+	aisyn -> terraforming;
+	human_enhancement [label="Human Enhancement"];
+	aisyn -> human_enhancement;
+	brain_simulation [label="Brain Simulation"];
+	neuro -> brain_simulation;
+	brain_simulation -> human_exploration;
+	brain_simulation -> robotic_exploration;
+	human_enhancement -> human_exploration;
+	life_support [label="Life Support"];
+	aisyn -> life_support;
+	life_support -> human_exploration;
+	life_support -> staying_there;
+
+	auto_asteroid [label="Autonomous Asteroid Explorers",style="stdbox,text width=2.6cm"];
+	ai -> auto_asteroid;
+	auto_asteroid -> robotic_exploration;
+	auto_asteroid -> asteroid_mining;
+
+	ipip [label="Interplanetary Internet"];
+	computing -> ipip;
+	ipip -> auto_asteroid;
+	ipip -> robotic_exploration;
+
+	spider_silk [label="Spider Silk"];
+	spider_silk -> structural_materials;
+	bio -> spider_silk;
+	bioreactors [label="Bioreactors"];
+	bioreactors -> terraforming;
+	bio -> bioreactors;
+}
+\end{dot2tex}
+\end{tikzpicture}
+\end{center}
