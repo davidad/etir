@@ -1,5 +1,6 @@
-\begin{center}
-\begin{tikzpicture}[scale=0.32,>=stealth]
+\begin{landscape}
+\begin{tikzpicture}[scale=0.28,>=stealth]
+	\begin{scope}
 	\tikzstyle{stdbox} = [draw,shape=rectangle,minimum size=1em,inner xsep=0.25em,inner ysep=0.25em,font=\tiny,text badly centered];
 	\tikzstyle{emph} = [font=\tiny\bfseries,thick];
 	\colorlet{challenge}{red}
@@ -8,7 +9,7 @@
 	\tikzstyle{exptech} = [stdbox,draw=exptech,emph,fill=exptech!50];
 \begin{dot2tex}[codeonly,dot,tikz]
 digraph G {
-  ratio=1.1;
+  ratio=0.7;
 	rankdir=BT;
 	//% GRAND CHALLENGES
 	node [style="challenge"];
@@ -27,7 +28,7 @@ digraph G {
 	robotic_exploration -> resources;
 	staying_there -> backup; //[dir="none"];
 
-	edge [style="semithick,color=challenge!70!black"];
+	edge [style="semithick,color=challenge"];
 	resources -> staying_there; //[dir="none"];
   getting_there -> resources;
 	human_exploration -> science; //[dir="none"];
@@ -48,7 +49,7 @@ digraph G {
 	neuro -> ai [dir="both"];
 	computing -> bio;
 	ai -> bio;
-	bio -> nano;
+	bio -> nano [dir="both"];
 	bio -> neuro;
 	nano -> computing;
 
@@ -56,6 +57,7 @@ digraph G {
 	edge [style=semithick];
   cats [label="CATS"]
 	cats -> getting_there;
+	cats -> education;
 	//% beam_power [label="Beam Power"];
 	//% beam_power -> cats;
 	//% heat_exchanger -> beam_power;
@@ -85,7 +87,7 @@ digraph G {
 	//% psychmon [label="Psych. Monitoring"];
 	//% neuro -> psychmon;
 	//% psychmon -> human_exploration;
-	rubisco [label="RubisCO Enzyme"];
+	rubisco [label="RubisCO"];
 	bio -> rubisco;
 	terraforming [label="Terraforming"];
 	rubisco -> terraforming
@@ -118,23 +120,71 @@ digraph G {
 	life_support -> human_exploration;
 	life_support -> staying_there;
 
-	auto_asteroid [label="Autonomous Asteroid Explorers",style="stdbox,text width=2.6cm"];
-	ai -> auto_asteroid;
-	auto_asteroid -> robotic_exploration;
-	auto_asteroid -> asteroid_mining;
+	bmi [label="Brain-Machine Interface"];
+	neuro -> bmi;
+	bmi -> robotic_exploration;
+	bmi -> human_exploration;
+
+	bio_research [label="Bio Research in $\mu$Gravity"];
+	bio -> bio_research;
+	bio_research -> science;
+
+	neuro_treat [label="Neurotech Treatments"];
+	neuro_treat -> human_exploration;
+	neuro -> neuro_treat;
+
+	space_portal [label="Space Portal/VR"];
+	computing -> space_portal;
+	ai -> space_portal;
+	space_portal -> education;
+
+	astro_bot [label="Companion Robot"];
+	ai -> astro_bot;
+	astro_bot -> human_exploration;
+
+	microbe_fuel [label="Microbial Fuel Cells"];
+	microbe_fuel -> life_support;
+	bio -> microbe_fuel;
+
+	print [label="3D Printing"];
+  computing -> print;
+	nano -> print;
+	print -> asteroid_mining;
+	print -> cats;
+
+	bio_rad [label="Biopolymer Radiation Shield"];
+	bio -> bio_rad;
+	bio_rad -> human_exploration;
+
+	space_comp [label="Space Supercomputer"];
+	computing -> space_comp;
+	space_comp -> ipip [dir="both"];
+	space_comp -> resources;
+
+	swarm [label="Swarms"];
+	ipip -> swarm;
+	swarm -> space_comp;
+	swarm -> cats;
+	swarm -> robotic_exploration;
+
+	auto_explore [label="Autonomous Explorers",style="stdbox"];
+	ai -> auto_explore;
+	auto_explore -> robotic_exploration;
+	auto_explore -> asteroid_mining;
 
 	ipip [label="Interplanetary Internet"];
 	computing -> ipip;
-	ipip -> auto_asteroid;
+	ipip -> auto_explore;
 	ipip -> robotic_exploration;
 
 	spider_silk [label="Spider Silk"];
 	spider_silk -> structural_materials;
 	bio -> spider_silk;
 	bioreactors [label="Bioreactors"];
-	bioreactors -> terraforming;
+	bioreactors -> life_support;
 	bio -> bioreactors;
 }
 \end{dot2tex}
+\end{scope}
 \end{tikzpicture}
-\end{center}
+\end{landscape}
