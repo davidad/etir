@@ -1,4 +1,5 @@
 \begin{landscape}
+	\vspace*{\stretch{1}}
 \begin{tikzpicture}[scale=0.28,>=stealth]
 	\begin{scope}
 	\tikzstyle{stdbox} = [draw,shape=rectangle,minimum size=1em,inner xsep=0.25em,inner ysep=0.25em,font=\tiny,text badly centered];
@@ -120,6 +121,11 @@ digraph G {
 	life_support -> human_exploration;
 	life_support -> staying_there;
 
+	sensor_net [label="Intelligent Environments"]
+	//computing -> sensor_net;
+	sensor_net -> life_support;
+	ai -> sensor_net;
+
 	bmi [label="Brain-Machine Interface"];
 	neuro -> bmi;
 	bmi -> robotic_exploration;
@@ -162,9 +168,9 @@ digraph G {
 	space_comp -> resources;
 
 	swarm [label="Swarms"];
-	ipip -> swarm;
-	swarm -> space_comp;
-	swarm -> cats;
+	ipip -> swarm [dir="both"];
+	swarm -> space_comp [dir="both"];
+	swarm -> cats [dir="both"];
 	swarm -> robotic_exploration;
 
 	auto_explore [label="Autonomous Explorers",style="stdbox"];
@@ -187,4 +193,5 @@ digraph G {
 \end{dot2tex}
 \end{scope}
 \end{tikzpicture}
+\vspace*{\stretch{1}}
 \end{landscape}

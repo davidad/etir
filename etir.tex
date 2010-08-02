@@ -8,6 +8,10 @@
 \usepackage{datetime}
 \usepackage{verbatim}
 \usepackage{pbox}
+\usepackage{float}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{ccaption}
 
 \usepackage{parskip}
 \usepackage{graphicx}
@@ -33,6 +37,7 @@
 \usepackage{url}
 \usepackage[ps2pdf,breaklinks=true,bookmarks=true,bookmarksopen,bookmarksopenlevel=1,pdfpagelayout=OneColumn,pagebackref=true]{hyperref}
 \usepackage{breakurl}
+\usepackage[all]{hypcap}
 \usepackage{makeidx}
 \usepackage[acronym]{glossaries}
 
@@ -46,6 +51,17 @@
 	  (Cited on pages #2.)%
 	\fi
 }
+
+\captionnamefont{\bfseries}
+\captiontitlefont{\small}
+\captiondelim{. }
+\captionstyle{\centering}
+\captionwidth{0.78\textwidth}
+\changecaptionwidth
+\precaption{\rule{0.78\textwidth}{0.4pt}\par}
+\postcaption{\vspace*{1mm}\hrule}
+\setlength{\abovecaptionskip}{2mm}
+\setlength{\belowcaptionskip}{4mm}
 
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
@@ -84,12 +100,25 @@
 \newacronym{LEO}{LEO}{Low Earth Orbit}
 \newacronymd{SSTO}{Single Stage to Orbit}{refers to a vehicle which reaches orbit without jettisoning hardware, expending only fluids. The term usually, but not exclusively, refers to reusable vehicles. \nopostdesc}
 \newacronymd{ITAR}{International Traffic in Arms Regulations}{a set of United States federal regulations that restrict the international trade of items and information which is considered by the federal government to be ``munitions,'' including encryption technology and space technology}
+\newacronym{ISS}{ISS}{International Space Station}
 \newacronymd{ISRU}{In-Situ Resource Utilization}{refers to the usage of local resources, especially the local usage of resources found in space, as opposed to the transport of Earth resources into space or vice versa. \nopostdesc}
 \newacronym{SLS}{SLS}{Selective Laser Sintering}
 \newacronym{EBFF}{EBFF}{Electron Beam Freeform Fabrication}
 
 \newglossaryentry{Isp}{text={\isp}, name={specific impulse (\isp)}, first={specific impulse (\isp)}, description={is a metric of rocket (or jet) efficiency; the change in momentum per unit amount of propellant used. (This works out to an SI unit of seconds.) The higher the specific impulse, the less propellant is needed to gain a given amount of momentum. For example, the Space Shuttle Main Engine has an \isp of 453s. \nopostdesc}}
 \newglossaryentry{gyrotron}{text={gyrotron}, name={gyrotron}, description={a type of high-powered microwave transmitter}}
+
+\newglossaryentry{payload-fraction}{name={payload fraction},description={the fraction of a launch
+vehicle's mass on the launchpad which is allocated to the object(s) being
+launched (payload), rather than structural materials, fuel, etc. \nopostdesc}}
+
+\newglossaryentry{rocket-equation}{name={ideal rocket equation},description={an equation which relates
+the maximum change of speed of a rocket with the \isp and the initial and final mass of the rocket.
+\[\Delta v = I_{\rm sp} g_0 \ln \frac{m_0}{m_1}\] where $m_0$ is the initial total mass, including
+propellant; $m_1$ is the final total mass, \isp is the specific impulse of the engine, $g_0$ is the
+initial acceleration due to gravity, and $\Delta v$ is the change of speed of the rocket over the
+entire period}}
+
 \glossarystyle{list}
 \makeglossaries
 % rubber: rules rubber.ini
@@ -112,10 +141,10 @@
 \thispagestyle{empty}
 \pdfbookmark[1]{Title Page}{titlepage}
 \begin{tikzpicture}[overlay,remember picture]
-	\node[yshift=1.5cm] at (current page.center) { \includegraphics{etir-page1} };
-	\node[yshift=0.3cm] at (current page.center) { \huge version 0.foobar };
-	\node[yshift=-0.6cm] at (current page.center) { \LARGE \today \hspace{0.2cm} \currenttime };
-	\node[yshift=1.2cm] at (current page.center) { \huge \color{red!70!white} \em DRAFT };
+	\node[yshift=0.5cm] at (current page.center) { \includegraphics{etir-page1} };
+	\node[yshift=-0.7cm] at (current page.center) { \huge version 0.foobar };
+	\node[yshift=-1.6cm] at (current page.center) { \LARGE \today \hspace{0.2cm} \currenttime };
+	\node[yshift=0.2cm] at (current page.center) { \huge \color{red!70!white} \em DRAFT };
 \end{tikzpicture}
 
 %%TABLE OF CONTENTS
@@ -175,33 +204,1104 @@ public about the possibilities and importance of human space exploration.
 
 \input{digraph}
 
-\section{State of the Problem Space}
 
-\subsection{Overview}
+
+\section{Aspects of the Problem Space}
 % Short description of the entire Problem Space
-
 Doing business in space should be easy, but it isn't. It's hard to get into
 space, even sending robots rather than humans. It's hard to stay in space for
 very long--again, even if you send robots.  It's hard to make use of the
 resources available in space. And it's hard to convince many people that going
 to space is even a good idea.
-
-\subsection{Aspects}
-%Detailed description of aspects of the problem space
+% TODO?
 
 We have chosen to focus on the following aspects of the problem space:
+%Detailed description of aspects of the problem space
 
-\input{problem-spaces}
+\subsection{Getting There}
+%(to be written by Dmitriy)
 
-\subsection{Exponential Technology Areas}
+The key problem driving the cost of space access today is fundamental
+inefficiency of chemical rockets. In the year 2010 payloads are delivered into
+orbit the same way they were launched in 1960s: by exploding large amounts of
+chemicals in a semi-controlled way. Conventional multistage rockets are limited
+to \glspl{payload-fraction} of less than 4\%. Using the \gls{rocket-equation},
+it is easy to see that this inefficiency is caused partly by the structural
+limits of existing materials, and partly by the limited \gls{Isp} of chemical
+propellants, which have reached a practical limit of 453 seconds. 
+ 
+Inefficiency of chemical propulsion results in unreasonable complexity of
+present day launch vehicles, which operate on the very limits of structural
+margins. This requires a large number of people to work on the maintenance,
+operation and pre-flight checks.  It also prevents reusability of rockets,
+leading to unacceptably high risks associated with launch and extremely high
+costs of payload insurance. Launch of a chemical rocket is a violent process
+and a structure operating near its design tolerance is more susceptible to
+fatigue and failure. The Space Shuttle, as a reusable vehicle, requires
+extensive refurbishment and safety checks between launches, to the extent that
+the launcher is disassembled, inspected, refurbished and rebuilt before every
+launch. For example, a hydrogen tank used for the on-board fuel cell is
+manufactured to burst at 1.5 times its usual operating pressure in order to
+save mass, but this safety factor of 1.5 means the tank may last only 100
+cycles. Such a failure-prone component must have a more regular inspection
+regime, so operational costs go up. In contrast, the fuselage of a pressurized
+civil aircraft has a safety factor of two, and for that relatively little extra
+mass will last tens of thousands of pressurization cycles. 
+ 
+The high cost of space launch arises not only from technical challenges but
+also from the absence of economic incentives and the lack of a well defined
+market.  Although, we would argue, those economical challenges will be
+eliminated as soon as the technical challenges of building cheap and reliable
+launch vehicles are resolved. On the economic side, various market models
+predict an essentially flat elasticity of demand for space access until the
+cost of launch is reduced below \$1000 per kilogram\cite{CommSpace1997}. (See
+\autoref{launch-cost}.) This implies that the primary economic benefits of space
+cannot be realized without an order of magnitude reduction in launch costs and
+hence, without a paradigm shift in the means of space launch systems. 
+ 
+\begin{figure}[bt!]
+	\centering
+	\includegraphics[width=\textwidth]{launch-cost}
+	\caption{Cost of space access over the last 5 decades}
+	\label{launch-cost}
+\end{figure}
+
+An additional problem that is deeply rooted in the inefficiency of chemical
+rockets and the absence of mature space exploration market is lack of mass
+produced cheap components for space launch systems. All critical components are
+custom produced and tested by large teams over long periods of time. This leads
+into yet another problem: the time lags between the payload production and
+launch are unacceptably long and can hardly fit into business models of small-
+and medium-sized businesses which demand expediency as they are driven by the
+demand of rapid growth. Moreover, the current way of space transportation often
+requires high level of integration between the launch vehicle and the payload,
+which means that the customer is forced to choose the supplier long in advance
+and coordinate the development of payload with the launch provider. 
+
+In summary, launch is currently almost prohibitively expensive, infrequent, and
+inconvenient. Any transformative change in the landscape of space activity will
+require more effective launch systems.
+
+\subsection{Staying There \label{staying-there}}
+
+The conditions we have to create in space for human life to thrive are to some
+extent the same humans need to create in order to stay on Earth. As we need to
+create conditions on Earth which are conducive to life, so have we in space.
+However, between the two environments there are some fundamental differences.
+In space the key challenges derive from: lack of breathable air/atmosphere;
+lack of all other life support systems, services, and goods/materials provided
+on Earth by Nature, as well as extreme temperatures; radiation; absence of or
+reduced gravity; different light-dark patterns; reduced number of people, at
+least in the early stages of space colonization, isolation, and reduced
+availability of physical space.
+ 
+A space system inhabitable by humans, at least given present technologies,
+should be designed in order to become, at a certain point, closed for matter
+and open for energy. All the living parts and beings would be interconnected
+and interdependent, as well as diverse and symbiotic.
+ 
+Staying in a space environment, either grounded or ungrounded, requires the
+respect of three fundamental principles: 
+ 
+\begin{enumerate}
+
+	\item     People in the space environment should not be subject to increasing
+		concentrations of substances produced by human activity, such as molecules
+		or chemical substances which if not removed would accumulate in air, soil,
+		water, or other materials (for example CO$_2$, CH$_4$, other chemical
+		substances).
+
+	\item     In a thriving space environment the fundamental life support
+		systems should be recreated and operated in a reliable way, indefinitely in
+		time. Through photosynthesis, or other processes achieving a similar
+		result, the space life-support systems should be able to regenerate order
+		and structure for human use, starting from higher levels of disorder, using
+		external energy sources.
+
+ \item     In space settlements people should not subject to conditions that
+	 systematically compromise their capacity to satisfy their fundamental human
+	 needs. Human needs can be classified in nine categories, in four domains---%
+	 Being (qualities), Having (things),  Doing (actions), Interacting (settings)%
+	 ---and all should be satisfied for a healthy and thriving life:
+
+\begin{center}
+  \small
+	\begin{tabular}{>{\centering\bfseries}m{0.17\textwidth}*{4}{>{\centering}m{0.16\textwidth}}}
+		\textsc{Fundamental Human Needs} & \bfseries Being & \bfseries Having & \bfseries Doing & \bfseries Interacting \tabularnewline\toprule
+subsistence &
+physical and mental health &
+food, shelter, work &
+feed, clothe, rest, work &
+living environment, social setting \tabularnewline\midrule
+protection &
+care, adaptability, autonomy &
+social security, health systems, work &
+co-operate, plan, take care of, help &
+social environment, dwelling \tabularnewline\midrule
+affection &
+respect, sense of humour, generosity, sensuality &
+friendships, family, relationships with nature &
+share, take care of, make love, express emotions &
+privacy, intimate spaces of togetherness \tabularnewline\midrule
+understanding &
+critical capacity, curiosity, intuition &
+literature, teachers, policies, educational &
+analyse, study, meditate, investigate &
+schools, families, universities, communities \tabularnewline\midrule
+participation &
+receptiveness, dedication, sense of humour &
+responsibilities, duties, work, rights &
+cooperate, dissent, express opinions &
+associations, parties, churches, neighborhoods \tabularnewline\midrule
+leisure         &
+imagination, tranquillity, spontaneity  &
+games, parties, peace of mind &
+day-dream, remember, relax, have fun &
+landscapes, intimate spaces, places to be alone \tabularnewline\midrule
+creation &
+imagination, boldness, inventiveness, curiosity &
+abilities, skills, work, techniques &
+invent, build, design, work, compose, interpret &
+spaces for expression, workshops, audiences \tabularnewline\midrule
+identity &
+sense of belonging, self-esteem, consistency &
+language, religions, work, customs, values, norms &
+get to know oneself, grow, commit oneself &
+places one belongs to, everyday settings \tabularnewline\midrule
+freedom &
+autonomy, passion, self-esteem, open-mindedness  &
+equal rights &
+dissent, choose, run risks, develop awareness &
+anywhere \tabularnewline\midrule
+\end{tabular}
+\end{center}
+\end{enumerate}
+ 
+If humans in space should be deprived of the capacity to satisfy any of the
+needs above, in a sufficiently abrupt manner or for a sufficiently long time
+duration, they would face a mental and/or physical poverty at first, and
+eventually, if the deprivation persists, they could be led to death. Any
+relational or governance system established in a space environment, especially
+with the goal of ``staying there,'' should consider all the fundamental human
+needs above. It should be noticed that while the satisfiers of the needs change
+across cultures, or time, the needs themselves remain constant. For this
+reason, a space environment and space activities should be designed to maximize
+the satisfaction of the human needs without violating the previous principles.
+This result can often be conveniently achieved through dematerialization, which
+becomes more and more effective with the advancement of exponential
+technologies such as augmented virtual reality. The fundamental design
+principles for human interaction in space could be the ``Golden Rule'': ``Would
+I like to be subject to such conditions I am creating?''
+
+Once the design principles above have been considered, the challenge remains
+how to implement them in the extreme space environment.
+
+\begin{comment}
+ REFERENCES:
+ Fundamental Human Needs: \url{http://en.wikipedia.org/wiki/Fundamental_human_needs}
+ Design principles: \url{http://www.naturalstep.org/sites/all/files/Strategic_SD_0.pdf}
+ 
+Colonization of the Moon, Mars, and Other Planets
+ 
+\url{http://settlement.arc.nasa.gov/}
+ 
+\url{http://nssdc.gsfc.nasa.gov/planetary/mars/mars_colonize_terraform.html}
+ 
+\url{http://www.washingtonpost.com/wp-dyn/content/article/2005/09/23/AR2005092301691.html}
+ 
+\url{http://www.hq.nasa.gov/office/hqlibrary/pathfinders/colony.htm}
+\end{comment}
+
+
+\subsection{Human Exploration}
+%(to be written by Sarah Jane)
+
+%emailed
+
+Human exploration beyond Earth's atmosphere presents many threats and promises
+to meeting basic human needs: The conditions are inhospitable to human life.
+There is no known air source. The temperatures are extreme. Radiation is
+intense. Meteor showers, solar flares, debris and dust are ever-present
+threats. Human--rated infrastructures and outposts do not exist. Other forms of
+life have yet to be found.  The challenges associated with understanding and
+preparing for optimum general human wellbeing in space is multitudinous. The
+recommendation, risk assessment and mitigation (be it technology,
+countermeasure development or advanced life supports and protocols) for the
+enhanced well being, performance, operation and happiness of the crews is
+imperative.
+
+\subsubsection*{Closed Loop Life Support Systems (CLLSS)}
+
+The CLLSS components, resources and technologies needed to provide a basic foundation for a live-able, controllable and recoverable environment for human space flight and habitability must include the following space-rated systems:
+
+\begin{itemize}
+	\item Atmospheric Revitalization
+
+	\item  Water Recovery
+
+  \item Waste Management
+
+  \item Habitation System
+
+  \item Environmental Monitoring
+
+  \item Pressure Control
+
+  \item Fire Protection
+
+  \item Thermal Control
+
+\end{itemize}
+
+NASA's ECLASS can only achieve a 65\% closed loop effectiveness with current
+systems technology (\autoref{eclss65}). This is acceptable for short duration
+human space flight and life onboard the \gls{ISS}, but it does not suffice for
+further human exploration.
+
+ 
+\begin{figure}[hb!]
+	\centering
+	\includegraphics[width=\textwidth]{SJTable1}
+
+	\caption{ECLSS Loop Closure: ISS 2010 + CH$_4$ Post-Process (kg pp/py) = 65\% effectiveness \cite{Neumeyer2010}}
+	\label{eclss65}
+\end{figure}
+
+\begin{description}
+\item[Food:] Need for a way to generate a complete, well rounded diet with minimal
+input and output, 100\% closed loop if possible.  Bonus: enjoyable to eat.
+
+\item[Water:] Need: Sophisticated waste and grey water systems to allow for closed loop water systems.
+
+\item[Waste:] Design waste out of the system. Design and engineer systems able to operate completely in loops closed for matter and open for energy.
+
+\item[Air:] Assure fully recyclable air systems able to work indefinitely at 100\% reliability.
+\end{description}
+
+Reliable fully closed loop life support systems for humans (\autoref{eclss95})
+need to be demonstrated in ground test facilities and in space with increased
+performance efficiencies such that little-to-no-maintenance, re-supply and the
+capacity for bio-regeneration is incorporated into the design metrics towards
+future autonomous space system adaptation and in situ resource utilization. We
+must advance, demonstrate, and integrate current space rated hardware with new
+technologies and strategies to also reduce the mass, power and re-supply
+requirements when measured against the current state of the art space flight
+qualified hardware and work towards both the issues of human survivability and
+longevity whilst in space.
+ 
+\begin{figure}[hb!]
+	\centering
+	\includegraphics[width=\textwidth]{SJTable2}
+
+	\caption{ECLSS Loop Closure: ISS + Bosch (or equivalent) + Brine Recovery + Waste Drying + Waste Recovery + Food Production (kg pp/yr) = 95\% effectiveness \cite{Neumeyer2010}}
+	\label{eclss95}
+\end{figure}
+
+\begin{comment}
+Added to BibTeX	
+	NASA Flagship Technology Demonstrator (FTD) Environment Control & Life Support (ECLS) Enterprise Workshop, Derek Neumeyer 2010 http://www.nasa.gov/pdf/458815main_FTD_EnvironmentControlAndLifeSupport.pdf
+\end{comment}
+
+\subsubsection*{Human Factors}
+
+Extreme environment architectures and habitat design greatly impact human
+performance, behaviors and limits in everyday life as equally as instances of
+great stress. As we know it, life in the space environment presents many
+challenging factors for the crew including: conditions of prolonged
+confinement, isolation, information saturation, performance pressure, constant
+monitoring, time delays, unnatural lighting, limited color palette and seasonal
+change, limited personal space, restricted access, thermal difference, the
+reliance on reconstituted air, water, tactile starvation and increasing
+physical acclimation as a result of radiation and microgravity. Reliability and
+diversity are equal yet opposite needs for optimum human habitat design in
+extreme environments.
+
+\subsubsection*{Extreme Design}
+
+Human-rated structures and habitable architectures for use in extreme
+environments such as space must satisfy very unique requirements. Temperature
+extremes, gravity, shielding from solar and cosmic radiation and
+micro-meteoroid impacts, vacuum / internal pressurization, abrasive and toxic
+materials such as planetary dust must be factored into design requirements.
+These issues pose great challenges to the structural adequacy, materials
+science and maintenance, compatibility, functionality, access and cost of
+suitable architectures and structures.
+
+ 
+\subsubsection*{Physiological Health}
+
+Physiological acclimation in space flight is complex and diverse involving
+multiple systems (\autoref{acc-timeline}). Past, present and future
+countermeasures in space flight require ongoing and additional review. Evidence
+of $\mu$gravity-induced physiological acclimation is known. Evaluations on
+crews in space analogue environments, space flight and \gls{ISS} flights are
+ongoing yet the long term effects yet to be fully known and mitigated. Medical
+risks variable and the delivery of medical interventions, preventions and care
+needs to be refined.  The effects of microgravity and radiation are the most
+problematic to human exploration in space. For instance, reliable and suitable
+materials technology, design and mitigation for radiation are needed.
+Acceptable radiation exposure limits need to be established. Alert/warning and
+communications infrastructure from pre-screening, to initial construction
+through to settlement phases need to be formalized to analyze the long-term
+health risks. Microgravity (from muscle atrophy, vestibular and ocular
+disturbance, venous pooling to sleep disturbance and sanitation issues) have
+been evidenced and greatly impact crew performance, health and well being, thus
+impacting on the entire mission.
+ 
+\begin{figure}[hbt!]
+	\centering
+	\includegraphics[width=\textwidth]{SJTable3}
+
+\caption{Timeline of physiologic acclimation and acclimatization experienced by astronauts from launch to after return to earth\cite{Williams2009}}
+  \label{acc-timeline}
+\end{figure}
+
+Other problems include \begin{enumerate} \item Bone demineralization leading to space-related osteoporosis and vitamin loss \item Temperature extremes \item Circadian dysynchrony and sleep disturbance \item High vacuum (decompression illness) \item Space debris \item Ionospheric plasma and \item Acoustic noise \end{enumerate}
+
+\begin{comment}
+Added to BibTeX
+Ref:"Acclimation during space flight: effects on human physiology", David Williams, MDCM MSc, Andre Kuipers, MD, Chiaki Mukai, MD PhD andRobert Thirsk, MDCM SM. CMAJ • June 23, 2009; 180 (13). First published June 9, 2009; doi:10.1503/cmaj.090628  © 2009 Canadian Medical Association  www.cmaj.ca 
+\end{comment}
+ 
+
+\subsubsection*{Countermeasure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.95\textwidth]{SJTable4}
+	\caption{Countermeasures to minimize risks to astronauts before, during and after spaceflight\cite{Williams2009}}
+	\label{acc-counter}
+\end{figure}
+
+One strategy for mitigating risks, stressors and ensuring supports for crews in
+space is through the development of countermeasures in addition to careful
+consideration of crew selection, appropriate training, extreme habitat design,
+human factors, social governance supports and societal infrastructures for long
+duration spaceflight. (See for instance \autoref{acc-counter}.) Future human
+exploration leading to ``staying there'' (\autoref{staying-there}) will need to
+design protocols and policies for consent and justice for one-way missions and
+strategies for permanent colonisation with ethical micro and meso-social
+structures.
+
+Today astronaut crews actively contribute and refine existing technologies and
+protocols to ensure best practices and environments for living and working
+based on their first-hand experience during space flight or mission; however
+the prevalent thought and practice today is essentially terrestrial.
+Countermeasures by their very nature, seek to provide supports consistent with
+the human need on Earth and thus have an inherent pedestrian and
+gravity-centric logic. Mitigating the optical disturbance of zero-gravity for
+instance by creating a false orientation with `Up' signs and consistently
+angled writing provides crews with short-term adaptation solutions. The need
+for Lunar, Martian and general Astro-centric specific counter-measures and
+harness-measures will be required in the future if we are to ensure optimum
+performance and evolve as an adaptive and empowered space-faring and future
+space-dwelling species.
+
+
+\begin{comment}
+Send to BibTeX:
+"Acclimation during space flight: effects on human physiology",
+David Williams, MDCM MSc, Andre Kuipers, MD, Chiaki Mukai, MD PhD andRobert
+Thirsk, MDCM SM. CMAJ • June 23, 2009; 180 (13). First published June 9, 2009;
+doi:10.1503/cmaj.090628  © 2009 Canadian Medical Association  www.cmaj.ca
+\end{comment}
+ 
+\subsubsection*{Psychological wellness}
+
+The psychological and related physical impacts of long duration space flight
+and extended human exploration into space on human performance, social
+interactions, group and community interactions, space-Earth relationships and
+crew-specific behaviours are critical to operations and overall mission
+success. Further research on the sources and impact of long duration space
+flight on crew health and incremental risk identification is needed in order to
+reclassify behavioural health risks and thus best-plan for eventual human
+colonisation of space. The need for autonomous medical care, self-care, remote
+care and communications strategies should be considered essential design
+requirements for Human Factors and Extreme Design architecture, Crew selection,
+pre-flight training, In-flight Procedure, and space-protocols.  
+
+\subsection{Robotic Exploration}
+%(to be written by Jan)
+
+By default, much of space exploration today is highly dependent on robotic
+systems as well as on support by means of artificial intelligence. From the
+early days of space exploration on, humans sent robotic devices and satellites
+into space to sense, image and explore the space frontier. However, much of the
+robotic exploration systems provide only crude degrees of ``intelligence.''
+More often than not, systems in space lag 15 years or more behind technology
+available on earth, which is mostly due to safety requirements as well as
+extensive research and development cycles within the space industry.  
+
+Another phenomenon which goes along with this is a fundamental dispute over
+human vs. robotic space exploration of space. The underlying logic states that
+robots will facilitate the groundwork of exploration for humans to follow. At
+this stage, the human dream to explore and possibly colonize space is normally
+dominated by the premise to move our life support systems into space and onto
+other planets.
+
+However, non-augmented human bodies need an earthlike environment almost to
+exact earth specifications. Earthlike atmospheres, which are changed by the
+very metabolism of the body being in it, water and hundreds of other needs from
+complex nutrients, molecules, to exercise, social and spatial requirements.
+Ironically, the body that gives us the primary medium for experiencing our
+surroundings is also the single largest barrier to traveling and experiencing
+space. 
+
+A long-term plan to visit space in human bodies is basically committing to the
+idea of bottling up earth and exploring space inside of an ``earth-bottle,''
+which entirely separates us from the extraordinary experiences the
+interplanetary universe offers us. 
+
+We argue that a new conceptual model to evolve space exploration should be
+based on the development of a new kind of humanoid robotics, super-human
+artificial intelligence as well as virtual representation of space exploration.
+In addition, the development of an inter/intrastellar smart network to connect
+all information-based agents, robots, vehicles, nodes and life-support systems
+is suggested to provide a collective intelligence approach within space.
+
+Humanoid robots---robots with human-like bodies such as Asimo or
+Robonaut---will quickly increase in their sensory capacity, eventually
+exceeding perception capabilities of the human body. In limited ways we already
+see today how robots equipped with night vision capability, thermal imaging
+capability, radar, seismographs, EMI receivers, and so forth augment human
+sensing. However, we suggest that such humanoid robots are only the very
+beginning of this ``body'' evolution. As described later, exponential advances
+in neuroscience, nanotechnology and synthetic biology will allow for a
+super-human kind of robots, with many human-like characteristics. However, such
+robots can be augmented with sensing and actuation capabilities beyond human
+limitations and can be specifically customized for conditions in space. In
+addition, the development of a specific ``super-human intelligence'' for such
+robots provides significantly higher information processing, problem solving
+capabilities, as well as communication characteristics with other intelligences
+such as robots, networks, satellites and humans by means of a space-wide
+operating system (e.g. ETIR idea ``Intelligent Space Operating System''). Human
+intellect can then be uploaded remotely, augmented by means of enhanced
+perception/sensing, and experienced individually as well as collectively. Super
+Human Intelligent robots for space exploration provide the benefit to be
+resistant to adverse conditions within space such as extreme temperatures,
+radiation and toxins. By default, they don't require oxygen, food, sleep, or
+sunlight and can be designed to be of higher emotional/psychological robustness
+compared to humans. Psychological, social and bodily characteristics can be
+dynamically shaped to be optimal for individual space missions and can be
+adapted over time.  This new kind of robotic super-human space exploration is
+meant to open up channels of exploration and experience with a currently
+unimaginable level of perceptive richness and extended realism by means of
+augmented sensing.  In addition, new kinds of virtual environments,
+brain-machine interfaces and multimodal feedback systems will allow us to
+navigate such experience at in virtual fashion at increasingly higher
+resolution and vividness. This can be shared by everyone on earth rather than
+by a few astronauts.  We believe the future of mankind in space can, and will
+be more interesting, exciting, and inspiring than the current vision of
+exploration with a human earth-bound body -- both can and should happen in a
+parallel initially. We believe we can explore the planets not just from the
+confines of a space suit or tin can on the surface, but from a spectrum of
+physical embodiments, beginning decades ago with space robots that sent back
+images for us to experience.  We will then know exactly on earth what it feels
+like to stick a feet in the sand of Mars, to go for a space-walk, or to observe
+our planet as a swarm of satellites.
+
+\begin{comment}
+1. Ellery a. Humans versus robots for space exploration and development. Space Policy. 2003;19(2):87-91. Available at: http://linkinghub.elsevier.com/retrieve/pii/S0265964603000146.
+
+2. Crawford I. The scientific case for human space exploration. Space Policy. 2001;17(3):155-159. Available at: http://linkinghub.elsevier.com/retrieve/pii/S0265964601000200.
+
+3. Fisackerly R, Reimers C, Pradier A. Exploration system technology aspects in the exploration programme of the European Space Agency. Acta Astronautica. 2006;59(1-5):3-12. Available at: http://linkinghub.elsevier.com/retrieve/pii/S0094576506001196.
+
+4. Peter N, Stoffl K. Global space exploration 2025: Europe's perspectives for partnerships. Space Policy. 2009;25(1):29-36. Available at: http://linkinghub.elsevier.com/retrieve/pii/S0265964608001033.
+
+5. 1. Messina P, Vennemann D. The European space exploration programme: Current status of ESA's plans for Moon and Mars exploration. Acta Astronautica. 2005;57(2-8):156-160. Available at: http://linkinghub.elsevier.com/retrieve/pii/S0094576505001116.
+
+6. Horneck G, Coradini A, Haerendel G, et al. Towards a European vision for space exploration: Recommendations of the Space Advisory Group of the European Commission. Space Policy. 2010;26(2):109-112. Available at: http://linkinghub.elsevier.com/retrieve/pii/S0265964610000238.
+\end{comment}
+
+
+\subsection{Space Resources}
+%(to be written by Mike)
+Human resource consumption increases as the population of the Earth
+increases and as each member of the population uses more resources,
+but the amount of resources available on the Earth remains fixed.
+Fortunately, we as a species are not limited to gathering these resources
+terrestrially. While we are facing a shortage of both raw materials\cite{gordon}
+and energy\cite{Seboldt2004} here on the planet, both of these resrouces are bountiful
+in our solar system and beyond.
+
+This observation is by no means novel. Right now, though, at the dawn
+of this new decade, we find ourselves sitting on the brink of an inflection
+point with respect to the harvesting of space-based resources and
+bringing them back to Earth. For the first time, as a result of the
+convergence of several pivotal and game-changing exponentially accelerating
+technologies, it will not only be economically viable to supply and
+power Earth from space, it will be a necessity.
+
+\subsubsection*{Terrestrial Shortage of Valuable Materials}
+
+There are currently not enough raw materials present on planet Earth
+for the world's current population to live with the quality of life
+of the modern developed world\cite{gordon}. This shortage clearly
+poses a large problem for the sustained growth of humanity in the
+upcoming decades, for not only is it desirable for every human being
+to have access to the same level of technology as those living in
+the developed world, but those in the developed world strive to advance
+their technological. Among others, some of the most important of these
+scarce materials are platinum group metals\cite{gerlach}.
+
+As these scarce materials are mined and extracted from the Earth,
+they become more and more scarce, and as they become more scarce the
+cost of mining them and extracting them increases. Fortunately, virtually
+all of these terrestrially scarce materials are available in space
+and can be found in near-earth asteroids. In the past, the cost of
+mining these asteroids and returning their materials to the earth
+has been prohibitively expensive. However, in the upcoming five to
+twenty years, the convergence of a number of exponentially accelerating
+technologies will result in the cost of mining these asteroids decreasing
+exponentially. With the cost of mining these materials from the earth
+increasing with every passing year, and the cost of mining them from
+space decreasing every year, there will be a point in the near future
+where it is not only economically viable but economically imperative
+to mine asteroids and return their contents to Earth\cite{gerlach}.
+
+There are many advantages of mining near-earth objects for resources
+over obtaining the resources from Earth, even aside from terrestrial
+shortage. First of all, it is likely that a high percentage prospecting
+missions will successfuly find highly valuable asteroids, due to already
+well-established science for analyzing the composition of asteroidal
+bodies from Earth. The high-grade ore found in asteroids will make
+processing (extractive metallurgy) quite easy. No negotiations will
+be needed with existing landowners. Additionally, there are no environmental
+laws to be dealt with, and mining and waste disposal will not have
+any potentially destructive effecst on the terrestrial ecosystem.
+Asteroid mining systems will be highly scalable, flexible, and reusable\cite{sonter}.
+
+Additionally, even if there were not a terrestrial shortage of materials
+like platinum group metals, there is no doubt that if we had more
+of them, it would usher in a new era of abundance on our planet. Imagine
+the advances in technology and quality of life that could be made
+if engineers could always use the ideal material for the job without
+having to worry about price or availability.
+
+Finally, the successful mining of asteroids will be essential to the
+ultimate expansion of our species into the solar system and beyond.
+Launching heavy objects from the ground in to space makes much less
+sense than constructing those objects in space from available resources.
+These resources are all available in near-Earth bodies.
+
+Thus, the value of mining asteroids for resources is clear. There
+are a number of sub-problems that must be solved in order to successfully
+accomplish such a mission\cite{gerlach}. Each of these problems can
+be solved elegantly with a combination of exponentially advancing
+technologies.
+
+\begin{description}
+\item[Remotely mining asteroids without the need for humans. ]Advances
+in AI and robotics will make this task cheaper and more efficient,
+and cheaper as robotics and microprocessors become cheaper.
+\item[Data Collection. ]Improved microprocessors, storage technology,
+and sensors will drop the price and enable more and better data to
+be collected. 
+\item[Mass and performance of spacecraft.] New materials such as carbon
+nanofibers and advanced composites will enable lighter structures
+to be as strong or stronger than steel.
+\item[Launch and Propulsion. ]Advances in launch (particularly beam-powered
+launch), solar technology, and energy storage will greatly increase
+the efficiency while decreasing the cost, dramatically cutting the
+costs of an asteroid mining mission.
+\item[Design.] Advances in software modeling and design will dramatically
+increase the chance of success and decrease the cost of each mission.
+\item[Miniaturization. ]The smaller a mining vehicle is, the more
+can be launched per payload and the more fault-tolerant the entire
+overall mission can be. Many technologies are getting smaller every
+year, and this will dramatically affect the industry.
+\end{description}
+
+In sum, it is absolutely essential for humans to mine asteroids for
+materials, since Earth is running out of resources, it will be essential
+for building space-exploration machinery in place, it will usher in
+a new era of abundance on Earth, and the cost of mining space-based
+materials will soon be cheaper than mining those same materials terrestrially.
+By leveraging a key set of exponentially advancing technologies, it
+will for the first time be possible very shortly to mine asteroids
+effectively, efficiently, and profitably.
+
+\subsubsection*{Space Based Solar Power}
+%(written by Jason) NOTE- I will email Carlos and Davidad the reference material.
+
+An underlying motive for all of human expansion has been the quest for energy.
+To early humans this meant the search for food, as food was the only form of
+energy they could take advantage of. Later on, our species created ways to
+harness other forms of energy through mechanical means---water power, wind
+power, coal, oil, uranium. These steady developments led to the expansion of
+the human race across the oceans to settle on nearly every habitual space on
+Earth.
+
+Today, with a global power consumption of 12TW\cite{Seboldt2004}, we are
+reaching the end of the energy supplies we have come to use so commonly. It is
+expected that by the year 2020, the global power consumption will be nearly
+20TW. It is becoming more expensive and more risky to search for fossil fuels
+to power our cities, and the combustion of these fuels is becoming highly
+damaging to the environment. Over 85\% of the power used today comes from
+fossil fuels\cite{Seboldt2004}. It is generally accepted that the time has come
+to focus on powering our world from completely renewable resources, and there
+are many resources that can be harnessed; tidal currents, wind, geothermal, and
+of course solar. Solar power is unquestionably the ultimate solution to our
+energy demands. In fact we have always relied on solar energy, we are just
+prefer to use it in it's stored form of a battery called fossil fuels.
+
+When we begin to explore the possibility of harvesting energy in space, rather
+than terrestrially, we will create a world of energy beyond what we can imagine
+today. The amount of energy in space is far greater than that needed to sustain
+the population of the planet for decades to come. For instance, the kinetic
+energy in the solar wind is $10^{14}$ MW, or over a million times the current
+global power consumption. Collecting solar energy and transporting it to Earth
+will not only solve the energy problem, taking everyone out of the ``dark age,''
+but will also open the space frontier economically. As soon as the break-even
+point is passed, a viable business case for space energy production will
+swiftly drive down the costs of launch, as more and more capital comes in from
+the energy sector.
+
+\begin{comment}
+References:
+(NSSO 2007) Space Based Solar Power as  and Opportunity for Strategic Security, 2007
+(Chaudhary 2010) Chaudhary, K., Vishvakarma, B.R. Feasibility study of LEO, GEO and Molniya orbit based satellite solar power station for some identified sites in India. J. Adv. Space Res. (2010)
+(Seboldt 2004) Space- and Earth-based solar power for the growing energy needs of future generations
+\end{comment}
+
+\subsection{Space Science}
+%(to be written by Diva)
+\begin{center}
+\em ``Somewhere, something incredible is waiting to be known''
+\end{center}
+\attrib{\textbf{-- Carl Sagan\index{Sagan, Carl}}}
+
+Before the 19th century, when the term ``scientist'' was first coined, people
+investigating Nature called themselves ``Natural Philosophers'' because they
+observed the workings of Nature and tried to extrapolate universal rules that
+would enable them to understand the surrounding World. What is the unit of
+life? What is the unit of matter? Is the Earth flat? These questions put
+forward by natural phylosophers, found an answer as technology started making
+its first steps into the era of modern science, thus empowering mankind to look
+deep into the structure of matter and far out beyond the atmosphere. As
+technology kept progressing exponentially, it allowed scientists to wander into
+new and unexplored territories. New questions thus arose: does life exist on
+other planets? Can intelligent life be found beyond our Solar System? Can there
+be different forms of intelligence? How did the Universe form? How did
+humankind evolve from prokaryotes? New fields---astrobiology, exobiology,
+planetary science, space-based astronomy---were born to answer these questions,
+while existing ones---biotechnology, medicine, neuroscience, synthetic biology%
+---started just now extending their reach into outer space. Altogether, these
+disciplines fall under the umbrella of a new scientific era, that of Space
+Science.  
+
+The comparatively nascent field of Space Science is at the cusp of major
+growth, given the technologies available in the next decade. The same curiosity
+that has driven technology advancement and continuity over the past centuries
+on Earth, has lead scientists just beyond the atmosphere over the past decades
+and will, in the comparatively near future, bring humanity to explore and
+colonize outer space. Space Science will provide a parallel or a whole new
+domain of possibilities beyond our imaginations today. Importantly, it will
+bring about new paradigms for the Science that is done on Earth, out of the box
+thinking that could feed back into the living system with the potential of
+tackling many of the still unsolved or unsolvable problems. These underlying
+features inevitably set apart Space science from the rest of the modern
+sciences. One could say that today is the beginning of a new era in Science, an
+era in its own right, which will see its climax in the human colonization of
+other Earth-like planets and the exploration of other solar systems. 
+
+\subsection{Space Education/Evangelism}
+%(written by Jason, edited by davidad)
+
+A key underlying problem to the limit  of humanity's progress in space is that the majority of the human  species is uninterested in space. Activities in space today do not  inspire the awe that they once did: instead of watching astronauts walk  upon the surface of a celestial body for the first time, today, if we're  lucky, we get to watch them repair the toilet on the International  Space Station. Educational outreach is a good start, but we need to  connect humanity to space in a more natural way. Global warming is now  perceived as a threat so compelling that most people believe we need to  do something about it. But this threat is dwarfed by that of remaining  on this planet indefinitely.
+
+NASA's  education program attempts to make space and the STEM (Science  Technology Engineering and Math) curriculum exciting for students, but  they do it without an understanding of the progress exponential  technologies will have on the space industry. Students today rarely  realize that when they grow older they will have a completely different  tool set with which to tackle space. We should teach them what the world  will be like in a decade or two and excite them on the possibilities  they can create.
+
+In  all instances of educating the public on the importance of space, from  youth to the elderly, opening the space frontier is never presented as  an explicit need---which it is. Space is often considered to be  primarily beneficial as an engine for creating technological spin-offs,  but even if space exploration paid no technological dividends, it would  still be crucially important. People don't appreciate the voyage of  Christopher Columbus to the Americas primarily because of the new  sextant developed for the journey that was eventually spun off to the  private sector and used in merchant shipping.
+
+It is human nature that we need to ``see it to believe it,'' and maybe this is what is holding back humanity  from understanding why space exploration is a necessity for survival.  Until ordinary people can experience space through their own eyes, the  possibilities that it holds will not be fully understood. What will  happen when the first child can see our home from space, or when the  first ballet dancer experiences weightlessness, or when a paraplegic is  given mobility again? Let's not just tell humanity about space, let's  give them access to space.
+
+
+\subsection{Insuring Humanity}
+%(to be  written by davidad)
+
+
+\section{Exponential Technology Areas}
 % Summary list\ldotsof what you considered, based on the SU tracks, for example
 
 In this report, we will illustrate a number of opportunities to address the
 above problems with exponential technologies. This section serves as a brief
 overview to each of the exponential technology areas.
 
-\input{et-overview}
+\subsection{AI and Robotics}
 
+% [Can we make this paragraph a vision statement rather than a historical statement?
+% Something more from http://su-etherpad.com/tpspace-The-Real-New-Space ?]
+%   [davidad: this is intended to be a historical orientation, but feel free to add a
+%    third paragraph that is more visionary in tone.]
+
+In the broadest sense, the fields of AI and robotics strive to make non-human systems able to perform human tasks%
+%Is this too limiting a view of AI and robotics? -- Will they just be worker tools, or the
+%beginnings of a future of extraordinary intelligence and physical capabilities?)
+, or other difficult tasks that are helpful to humans. Robotics focuses on the necessary physical capabilities, while AI focuses on the necessary mental capabilities. At present, AI systems are capable of solving a plethora of individual problems, each of them far more swiftly and accurately than a human could; but no robot is capable of loading a dishwasher yet.
+% I would not make this point, as Robots already wash our dishes today far better than
+% humans do (including total disinfection), and don't do it at all the way we do (contained
+% machines). Planes also don't fly like birds, but we might say they are far better for our
+% purposes.
+This phenomenon is represented by the term ``narrow AI'': each AI system today is typically helpless outside the situation it was designed for. These systems solve problems such as searching the Internet, routing FedEx packages, military logistics, or playing chess. However, it has been predicted that in the future, we wil develop what is known as ``strong AI'': an AI system that nears human levels of tolerating uncertainty, and can generate original solutions to problems hitherto unseen and unanticipated by the designers of the AI.
+
+\subsection{Biotechnology}
+
+We currently live in the Renaissance era of Biology. Molecular biology along
+with computer science is the fastest growing science of the past four decades.
+This rapid development is due to a consecutive line of major milestones that
+include: Solving structure of the DNA, Deciphering the genetic code, Genetic
+engineering via restriction enzymes, The PCR machine, Microarry technology, The
+completion of the human genome project, microfluidics technology and more. The
+vast array of tools and knowledge gave rise to a growing branching of
+sub-fields of Molecular Biology that include Genetic engineering, Biophysics,
+Protein design, Protein fold prediction, Bioinformatics, Computational biology,
+Systems Biology and most recently, Synthetic Biology.
+ 
+In the following paragraphs we shall outline the most notable exponentially
+growing molecular biology fields and methods:
+ 
+Genomics is the extension of genetics to the scope of full organisms' genomes.
+Genomics is rapidly developing in the reading capabilities of DNA which is
+regarded as ``DNA Sequencing,'' the artificial generation of DNA polymers which
+is regarded as ``DNA synthesis'' and the comprehension of the genetic
+information.
+ 
+DNA Sequencing capability is exponentially improving ever since the human
+genome project was launched. The first significant technological leap is owed
+to the contribution of Dr. Craig Venters that introduced the ``Shotgun'' method
+through his company Celera. An active and highly innovative industry competes
+by introducing diverse technologies for sequencing which may be very different
+in method. Although there still is no one technological golden standard, the
+speed of sequencing and amount of DNA material that can be processed in
+parallel is exponentially growing whereas the price is rapidly dropping. This
+could be exemplified by the amount of DNA sequences submitted to Genbank, a NIH
+funded DNA repository (see figure).
+
+The vast amount of genetically available material paved the way for the
+Bioinformatics fields that was essential for the assembly, interpretation and
+pattern recognition of the accumulated data. Bioinformatics in turn grow
+rapidly and branched into several sub fields that specializes in genes (``coding
+regions''), regulatory elements (``intergenic regions''), gene expression
+analysis, systems biology and computational biology. Systems biology that aims
+to achieve the co-functioning comprehension of a large set of genes and
+proteins is rapidly growing as can be seen by the amount of grant funds the
+field receives (see figure).
+ 
+Upon the completion of the human genome project in 2000 by both by the
+international consortium and the Celera private venture the tipping point and
+rise of the post-genomic era began. The draft to our genetic software was
+accessible to study for the first time in human history, and genes where being
+studied in large sets of thousands rather than one at a time.  A similar era is
+about to embark soon, as full genome sequencing prices will fall sufficiently
+to enable a multi-genome era where humanity will hold a large set a genomes by
+different individuals, enabling comparative genomics, the exhaustive comparison
+of entire genomes.
+ 
+DNA synthesis capability, albeit lagging behind the DNA sequencing technology,
+is also advancing by a verity of methods, and synthetic DNA grows longer and
+cheaper rapidly. As in the DNA sequencing arena, Dr. Craig Venters contributed
+greatly to this field to and currently holds the record for the largest
+sequences of artificially generated DNA.  Long synthesized DNA is driving the
+emerging field of synthetic biology that aims to fabricate novel life forms.
+The current state of the art is a partial generation of a bacterial organism.
+ 
+Proteomics is the extension of Biochemistry to the scope of full organisms'
+proteins.  Proteomics is rapidly developing in the reading capabilities to
+solve the 3D structure of proteins by means of X-ray crystallization and NMR
+studies as can be seen by the exponentially accumulation of protein structures
+in PDB, the protein data bank (see figure). Although the 3D structure of most
+proteins is known to be directed by the amino acid sequence of the proteins,
+the question of inferring the structure from the sequence which is also known
+as ``the protein folding problem'' is still largely unsolved and is on of
+Biology's holy grails. However, the computational prediction of the structures
+are growing increasingly better due to superior heuristics, vast amount of
+biological raw data and extended computation capabilities, and it is widely
+believed this challenge will be eventually solved. The ability to comprehend
+the correlation of protein structure and function will enable the rational
+protein design and will open a virtually limitless space of synthetic proteins
+with properties that to date do not exist in nature. A mature protein design
+field could correct for most genetic defects along with the transplantation of
+genes via Gene therapy methods, create new genes and produce new bio materials
+and biological drugs such as hormones and antibodies. To date, protein design
+is limited to semi-random in vitro evolution methods, partially driven by
+rational thought and by chimerical approaches of modular construction of
+proteins based on naturally existing scaffolds.
+ 
+The microarray technology and its subset DNA-chips is yet another disruptive
+trend in biology that enables a vast readout of all the expressed genes within
+a cell by assessing the presence of mRNA transcripts. This technology, along
+with the exponential advances in DNA sequencing, greatly contributed to the
+generation of the Bioinformatics field, and to its sub branches, gene
+expression regulation and Systems biology. The microarrays that were at first
+extremely expensive, unreliable and with a relatively small number of
+biomarkers, are now commonly used, as can be seen in the elevated number of
+publications that address microarray data, and they are rapidly growing
+cheaper, larger and robust. To date there is still no gold standard to the
+optimal mathematical correction algorithm for their analysis, and the field of
+microarray analysis quite active.
+ 
+Another disruptive and rather new technology is Microfluidics that enables
+micro manipulation and experimentation on single cells via liquidous apparatus
+with miniature compartments. Microfluidics enables experimentations that have
+previously not been feasible.
+ 
+In the near future, we will be readily reading, generating, transplanting,
+manipulating and creating genetic and protein material, capability that will
+enable us to reshape life forms including humans.
+ 
+
+\subsection{Nanotechnology and Materials Science}
+
+The first tools that humans used were simple sticks and stones, native ``bulk''
+materials from the environment. Certain rocks were chosen for their hardness,
+or for their sharpness when cleaved, while certain sticks were used for their
+light weight and as tools requiring aspect ratios that are unattainable using
+rocks. Later these bulk materials were combined into things that enabled
+functions that were more than the sum of the parts, such as stone axes, animal
+traps, and wheeled vehicles.
+
+In a similar way, we are barely beginning our technological evolution in space
+and are using many bulk materials, for example the planned Mars Curiosity rover
+is made mostly of aluminum and uses two-dimensional monolithic computation
+elements. The next step, and the goal of nanotechnology and materials science,
+is to discover the structural, electronic, thermal, and other physical
+properties of nanoscale materials and learn to harness these properties to
+create new or improved functionality, both structurally and on the scale of
+sensing and computation elements. These properties that may be inferior in bulk
+materials or perhaps not even exist on the macro-scale.
+
+\begin{comment}
+Nanostructured materials and nanoscale devices will be precisely engineered on
+the molecular scale to harness these properties.  Structurally, they may be
+stronger, lighter, or more flexible, such as carbon fiber. They may promise
+improvements on existing technology, such as graphene as a replacement for
+transistors, or heretofore unforseen devices, such as graphene as an atomically
+thin vibrating two-dimensional membrane for mass sensing (while other
+materials, even thin materials are three-dimensional). In addition, since
+biological organisms are a vast assemblage of nanomachines, the line between
+artificial nanoengineering and nature may be blurred in many applications.
+\end{comment}
+
+The enabling factors for continued improvement and innovation at the nanoscale
+reside in both funding new research and in an applications-centered,
+business-driven approach. They may reside in a shift from old ways of thinking
+and an agility to absorb new technologies as they become available.
+
+\subsection{Information Technology and Networking}
+
+The exponential nature of Information Technologies and Networking is a well
+established phenomenon. In 1965, Intel's co-founder Gordon Moore noted that the
+number of components in integrated circuits had been doubling roughly every two
+years since their invention in 1958, and predicted that the doubling trend
+would continue for at least another decade. Since then, and more than forty
+years later, Moore's ``law'' continues to signal the evolution of processing
+speed, memory capacity, hard- disk storage, power consuption, transistor cost,
+and many other applicable metrics that seem to lay, roughly, on exponentially
+increasing (or decreasing) curves. (See \autoref{moores-law}.)
+
+\begin{figure}
+\includegraphics[width=\textwidth]{Transistor_Count_and_Moore's_Law_-_2008}
+\caption{Transistor count and Moore's Law}
+\label{moores-law}
+\end{figure}
+
+It is remarkable that these exponential trends have survived many technology
+changes, and some technological paradigm shifts, without ralenting even through
+global crisis or other political and economical turmoils. An industry-wide
+belief in the nature of these exponentials has led companies to invest billions
+of dollars in the process of finding the next doubling factor before the
+competition, and drove many to describe Moore's law as  the ``self-fulfilling
+prophecy'' of the electronics industry. However, and even though every few
+years new technical bottlenecks seem to suggest that Moore's Law might be
+getting to an end, our current understanding of the fundamental limits of
+computation shows that there is no fundamental reason why computational density
+should not keep increasing at its exponential pace for the forseeable future.
+
+Over the last five decades, the exponential evolution of electronics has
+played a fundamental role in many of the scientific and technological
+achievements of humanity, and has been a fundamental enabler of global trade,
+the increased efficiency of value chains and the onset of what is called the
+knowledge economy. The Internet itself, still in its infancy, has
+revolutionized the way we do business, collaborate and interact with each
+other, and the same technology, in the hands of billions through mobile phones
+and its descendants, is predicted to play a fundamental role in integrating the
+next four billion people in the base of the pyramid to the global economy and
+to a global society. The astronomical increase in our capacity to generate,
+store and process information is leading fundamental changes in the way we
+think about and do science. Many other scientific disciplines, including, most
+notably, biology, are now increasingly becoming information sciences, and the
+exponential trends of information technologies spread to these disciplines and
+help put them in their own exponential paths. 
+
+We expect these trends to continue and evolve in the short term, and over the
+next few decades, to show an increasing paralellization of today's
+architectures, increasing interconnectedness, increasing miniaturization, new
+human-machine interfaces, new machine-to-machine interfaces, sensor and
+actuator networks; embedded computational systems in everyday objects;
+distributed, decentralized platforms for data acquisition, storage and
+processing; ubiquitous, high-bandwith networks; high-quality augmented/virtual
+reality with haptic interfaces; implantable bio-electronics; new computational
+paradigms for high-performance, massively parallel computation; new
+computational paradigms for energy-efficient and low heat computation.
+
+At the same time, we expect Information Technologies, Computing Systems and
+Networks to impregnate, merge-into and drive the convergence of Biotechnology,
+Nanotechnology and Neurotechnology, to a new integrated technology realm at the
+nano-scale.
+
+
+\subsection{Neurotechnology and Medicine}
+
+The human beings through research and technology have begun to understand the
+nature and mysteries of the Universe. However, Space is a harsh environment,
+and technological advancements in material science, robotics, power generation,
+and medical equipment will be required to ensure that astronauts survive
+interplanetary journeys and settlements. In addition, operational challenges,
+such as the management of life-support systems, food and nutrition, medical
+care, and psychosocial health due to long-term confinement, will have an impact
+on human health during long-term space missions and more even if we think to
+settle and to stay on other planets or regions in our Solar System.
+ 
+Since the human is considered to be a critical system of space flight in the
+same way the propulsion, thermal, and power are critical systems to space
+flight, the searching of opportunities where accelerating technologies could be
+possible solutions in these issues in the coming future, is warranted.
+ 
+Why go into space when we have so many problems here on Earth? It is a
+legitimate question as unfortunately not enough people have been made aware of
+the vast benefits the space program provides that increase the quality of our
+daily lives. Applications on Earth of technology needed for space flight have
+produced thousands of ``spinoffs'' that contribute to improving several fields
+including medicine, biotechnology, and neurosciences\cite{TheSpacePlace2004}.
+One small example is the Hubble Space Telescope technology which was used in
+the Charge Coupled Device (CCD) chips for digital imaging breast biopsies. The
+resulting device images breast tissue more clearly and efficiently than other
+existing technologies. The CCD chips are so advanced that they can detect the
+minute differences between a malignant or benign tumor without the need for a
+surgical biopsy. With over 500,000 women needing biopsies, this technology saves
+time and money for this procedure versus surgical biopsy. 
+ 
+At the same time, accelerating technologies in medicine and neuroscience should
+help to solve huge problems in human space exploration and ``staying there,''
+including better methods and techniques in the basic and clinical research,
+which are the basis for new knowledge and the source for new technologies. 
+ 
+Medicine tools that could help solving grand challenges are immersing in
+biotechnology, nanomedicine and nanomaterials, robotic, artificial
+intelligence, bio-engineering, and bio-informatics. More specifically, the
+broad spectrum of sensors and biotech for prevention, and early diagnosis of
+the health problems, new materials for radiation protection, autonomous medical
+care (AI, robotics, bioinformatics) for diagnosis and treatment, and tissue
+engineering for recovery, are some interesting examples where exponential
+technologies should be involved.
+ 
+Neuroscience research helps us to describe and understand how the brain
+controls behavior. One of the critical tools is the recording equipment which
+helps us to study the neural signals during behavior. While noninvasive neural
+signal recording techniques, such as electroencephalography (EEG) and
+functional magnetic resonance imaging (fMRI), are getting more precise and
+easier to operate, their costs are also dropping \cite{mri1991}. As these
+equipments are more affordable for the public, more neural recordings from
+individuals are available to study a wide range of problems. The exponential
+increase in hardware and software tools and the available data help the
+development of statistical models for different medical applications, such as
+personal health diagnostics.
+ 
+Another trend observed is the decrease in computational time for non-invasive
+medical diagnosis through computer tomography (CT), MRI and positron emission
+tomography (PET) as the computational power exponentially increases through
+techniques like parallelization. Meanwhile, for instance, PET detectors are
+getting smaller at an even faster rate, offering higher resolution data
+\cite{neuroimage2004}.  \autoref{neuro1} shows that improvements in run time
+alone are not sufficient to meet the computing demands for future PET scanners. 
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=4in]{neuro1.png}
+\caption{Illustration of the approximate order of computational complexity for
+2D and 3D clinical and small animal scanners shown in comparisons to ``Moore's
+law'', the observation that single-processor computing power doubles roughly
+every 18 months \cite{neuroimage2004}. The lower curve for the ECAT systems
+represents 2D complexity, the upper curve represents 3D complexity.}
+\label{neuro1}
+\end{figure}
+ 
+Significant improvements can be also found in neural prosthetic devices. Using
+implanted electrodes to deliver electrical stimulation to the sensory nervous
+system, cochlear implants have been well developed for the deaf to hear and
+retinal implants are under FDA trials for the blind to see. \autoref{neuro2}
+from \cite{Zeng2004} demonstrated the improvement of sentence recognition of
+cochlear-implant users with more recent models. Custom motor prosthetics like
+robotic arms with high dexterity are developed for patients who lost their
+limbs. Paralyzed patients can now interact with the world with brain computer
+interface (BCI). The exponential increase in computational power also allows
+researchers to simulate large neuronal network and the resulting knowledge
+benefits the development of better neural prosthetic devices.
+ 
+\begin{figure}[hbtp]
+\centering
+\includegraphics[width=5in]{neuro2.png}
+
+\caption{\justify Sentence recognition of cochlear-implant users \cite{Zeng2004}. The
+x-axis labels show the type of device, the processor model, the place where the
+study was conducted, and the year the study was published. The y-axis shows
+percent correct scores for sentence recognition in quiet. The scores in
+cochlear implants developed before 1994 were averaged from investigated studies
+published in peer-reviewed journals. The score in devices developed thereafter
+were obtained from company-sponsored clinical trials that had also been
+published in peer-reviewed journals. Besides ``single-electrode'' for the
+3M/House device, the text on top of the bars represent speech processing
+strategies including SPEAK (Spectral PEAK extraction), ACE (Advanced
+Combination Encoder), CA (Compressed Analog), CIS (Continuous Interleaved
+Sampler), and SAS (Simultaneous Analog Stimulation).}
+\label{neuro2}
+\end{figure}
+ 
+\begin{comment}
+REFERENCE
+[MRI] http://www.diagnosticimaging.com/display/article/113619/1219412
+[PET] http://neuroimage.usc.edu/ResearchPETComput.html
+[ZENG] Fan-Gang Zeng, “Trends in Cochlear Implant”, Trends Amplif. 2004;8(1):1-34
+\end{comment}
+
+
+\subsection{Policy, Law, and Ethics}
+
+We are not in a position to fully analyze the far-reaching consequences of
+near-term steps by space agencies and private space entrepreneurs, however we
+can set about to establish a  context for critical evaluation of our
+motivations and hesitations at the Singularity University during the 2010 GSP.
+This is a time to develop a culture of intense questioning and reflexivity,
+weighing up the pros and cons of social and education value, economic and
+political drivers, scientific benefits, risks, the battle for sovereignty
+between nation states; time readiness, and the lessons learnt from past human
+endeavors at each stage of mission  planning and undertaking. Particular
+attention must be paid to our obligations and restrictions, the differences of
+moral standing and the agents behind them; the intrinsic and instrumental
+values of global peoples and the core truths of our calling, in order to plan
+effectively and to garner new insights and knowledge for wider reaching
+solutions to terrestrial concerns so that we can leverage exponentially
+advancing technologies for the benefit of humanity, the planet and the future
+of our activities in space. We have a responsibility to boldly stay to serve
+legitimate interests as a peaceful, well-meaning people and the opportunity to
+explore new ways of seeing life, and space, from a whole new perspective. 
+
+It is posited that if we are to actually improve standards of living on Earth
+through space by  generating economic opportunity; providing access to new
+resources (material, intellectual and so on) then we need to bring about the
+prospect of rapid technological development, the cross-fertilization of ideas,
+new visions and shared dreams for the benefit of all human-kind and this begins
+with the power of the questions we ask ourselves, and the declarations we make
+for our future generations. 
+
+
+
+
+\section{Exponential Technology Opportunities}
+
+\begin{comment}
 \subsection{Classification of opportunities}
 
 We offer a brief taxonomy of the problems that exponential technologies need to
@@ -218,9 +1318,7 @@ our current understanding of the relative role of each of the
 exponential technologies and solution domains, and to help us focus our
 in-depth analysis of conceptual solutions to those areas that appear
 more fruitful.
-
-
-\section{Exponential Technology Opportunities}
+\end{comment}
 
 $\ldots$For each of the sections below, we discuss the current state of the art,
 related exponential technologies, potential benefits, convergences with other
@@ -243,7 +1341,7 @@ technologies, and potential barriers to adoption.
 \addcontentsline{toc}{section}{Glossary}
 \printglossaries
 
-\clearpage
+\newpage
 \phantomsection
 \addcontentsline{toc}{section}{Index}
 \printindex
