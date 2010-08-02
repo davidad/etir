@@ -2,6 +2,7 @@
 
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 %\usepackage[ansinew]{inputenc}
 \usepackage{lmodern}	% font definition
 \usepackage{verse}
@@ -97,29 +98,7 @@
 \newcommand{\isp}{$I_{\rm sp}$}
 
 %%GLOSSARY
-\newacronymd{CLLSS}{Closed-Loop Life Support Systems}{are life support systems which reuse 100\% of their waste resources, with the exception of waste energy}
-\newacronymd{COSPAR}{Committee on Space Research}{COSPAR promotes international scientific research in space, and provides an open forum for the disucssion of problems related to space science (for instance, organizing conferences on planetary protection policy).}
-\newacronym{LEO}{LEO}{Low Earth Orbit}
-\newacronymd{SSTO}{Single Stage to Orbit}{refers to a vehicle which reaches orbit without jettisoning hardware, expending only fluids. The term usually, but not exclusively, refers to reusable vehicles. \nopostdesc}
-\newacronymd{ITAR}{International Traffic in Arms Regulations}{a set of United States federal regulations that restrict the international trade of items and information which is considered by the federal government to be ``munitions,'' including encryption technology and space technology}
-\newacronym{ISS}{ISS}{International Space Station}
-\newacronymd{ISRU}{In-Situ Resource Utilization}{refers to the usage of local resources, especially the local usage of resources found in space, as opposed to the transport of Earth resources into space or vice versa. \nopostdesc}
-\newacronym{SLS}{SLS}{Selective Laser Sintering}
-\newacronym{EBFF}{EBFF}{Electron Beam Freeform Fabrication}
-
-\newglossaryentry{Isp}{text={\isp}, name={specific impulse (\isp)}, first={specific impulse (\isp)}, description={is a metric of rocket (or jet) efficiency; the change in momentum per unit amount of propellant used. (This works out to an SI unit of seconds.) The higher the specific impulse, the less propellant is needed to gain a given amount of momentum. For example, the Space Shuttle Main Engine has an \isp of 453s. \nopostdesc}}
-\newglossaryentry{gyrotron}{text={gyrotron}, name={gyrotron}, description={a type of high-powered microwave transmitter}}
-
-\newglossaryentry{payload-fraction}{name={payload fraction},description={the fraction of a launch
-vehicle's mass on the launchpad which is allocated to the object(s) being
-launched (payload), rather than structural materials, fuel, etc. \nopostdesc}}
-
-\newglossaryentry{rocket-equation}{name={ideal rocket equation},description={an equation which relates
-the maximum change of speed of a rocket with the \isp and the initial and final mass of the rocket.
-\[\Delta v = I_{\rm sp} g_0 \ln \frac{m_0}{m_1}\] where $m_0$ is the initial total mass, including
-propellant; $m_1$ is the final total mass, \isp is the specific impulse of the engine, $g_0$ is the
-initial acceleration due to gravity, and $\Delta v$ is the change of speed of the rocket over the
-entire period}}
+\input{glossary}
 
 \glossarystyle{list}
 \makeglossaries
@@ -212,6 +191,7 @@ public about the possibilities and importance of human space exploration.
 \section{Aspects of the Problem Space}
 \label{problem-spaces}
 % Short description of the entire Problem Space
+% FIX FIX FIX
 Doing business in space should be easy, but it isn't. It's hard to get into
 space, even sending robots rather than humans. It's hard to stay in space for
 very long--again, even if you send robots.  It's hard to make use of the
@@ -222,7 +202,12 @@ to space is even a good idea.
 We have chosen to focus on the following aspects of the problem space:
 %Detailed description of aspects of the problem space
 
+\subsection{Insuring Humanity}
+\label{ps-insuring-humanity}
+%(to be  written by davidad)
+
 \subsection{Getting There}
+\label{ps-getting-there}
 %(to be written by Dmitriy)
 
 The key problem driving the cost of space access today is fundamental
@@ -287,6 +272,7 @@ inconvenient. Any transformative change in the landscape of space activity will
 require more effective launch systems.
 
 \subsection{Staying There \label{staying-there}}
+\label{ps-staying-there}
 
 The conditions we have to create in space for human life to thrive are to some
 extent the same humans need to create in order to stay on Earth. As we need to
@@ -306,7 +292,7 @@ and interdependent, as well as diverse and symbiotic.
  
 Staying in a space environment, either grounded or ungrounded, requires the
 respect of three fundamental principles: 
- 
+
 \begin{enumerate}
 
 	\item     People in the space environment should not be subject to increasing
@@ -418,6 +404,7 @@ Colonization of the Moon, Mars, and Other Planets
 
 
 \subsection{Human Exploration}
+\label{ps-human-exploration}
 %(to be written by Sarah Jane)
 
 %emailed
@@ -625,6 +612,7 @@ requirements for Human Factors and Extreme Design architecture, Crew selection,
 pre-flight training, In-flight Procedure, and space-protocols.  
 
 \subsection{Robotic Exploration}
+\label{ps-robotic-exploration}
 %(to be written by Jan)
 
 By default, much of space exploration today is highly dependent on robotic
@@ -720,6 +708,7 @@ our planet as a swarm of satellites.
 
 
 \subsection{Space Resources}
+\label{ps-space-resources}
 %(to be written by Mike)
 Human resource consumption increases as the population of the Earth
 increases and as each member of the population uses more resources,
@@ -870,6 +859,7 @@ References:
 \end{comment}
 
 \subsection{Space Science}
+\label{ps-space-science}
 %(to be written by Diva)
 \begin{center}
 \em ``Somewhere, something incredible is waiting to be known''
@@ -911,6 +901,7 @@ era in its own right, which will see its climax in the human colonization of
 other Earth-like planets and the exploration of other solar systems. 
 
 \subsection{Space Education/Evangelism}
+\label{ps-space-evangelism}
 %(written by Jason, edited by davidad)
 
 A key underlying problem to the limit  of humanity's progress in space is that the majority of the human  species is uninterested in space. Activities in space today do not  inspire the awe that they once did: instead of watching astronauts walk  upon the surface of a celestial body for the first time, today, if we're  lucky, we get to watch them repair the toilet on the International  Space Station. Educational outreach is a good start, but we need to  connect humanity to space in a more natural way. Global warming is now  perceived as a threat so compelling that most people believe we need to  do something about it. But this threat is dwarfed by that of remaining  on this planet indefinitely.
@@ -922,9 +913,6 @@ In  all instances of educating the public on the importance of space, from  yout
 It is human nature that we need to ``see it to believe it,'' and maybe this is what is holding back humanity  from understanding why space exploration is a necessity for survival.  Until ordinary people can experience space through their own eyes, the  possibilities that it holds will not be fully understood. What will  happen when the first child can see our home from space, or when the  first ballet dancer experiences weightlessness, or when a paraplegic is  given mobility again? Let's not just tell humanity about space, let's  give them access to space.
 
 
-\subsection{Insuring Humanity}
-%(to be  written by davidad)
-
 
 \section{Exponential Technology Areas}
 \label{et-overview}
@@ -935,6 +923,7 @@ above problems with exponential technologies. This section serves as a brief
 overview to each of the exponential technology areas.
 
 \subsection{AI and Robotics}
+\label{et-ai}
 
 % [Can we make this paragraph a vision statement rather than a historical statement?
 % Something more from http://su-etherpad.com/tpspace-The-Real-New-Space ?]
@@ -952,6 +941,7 @@ In the broadest sense, the fields of AI and robotics strive to make non-human sy
 This phenomenon is represented by the term ``narrow AI'': each AI system today is typically helpless outside the situation it was designed for. These systems solve problems such as searching the Internet, routing FedEx packages, military logistics, or playing chess. However, it has been predicted that in the future, we wil develop what is known as ``strong AI'': an AI system that nears human levels of tolerating uncertainty, and can generate original solutions to problems hitherto unseen and unanticipated by the designers of the AI.
 
 \subsection{Biotechnology}
+\label{et-bio}
 
 We currently live in the Renaissance era of Biology. Molecular biology along
 with computer science is the fastest growing science of the past four decades.
@@ -1058,6 +1048,7 @@ enable us to reshape life forms including humans.
  
 
 \subsection{Nanotechnology and Materials Science}
+\label{et-nano}
 
 The first tools that humans used were simple sticks and stones, native ``bulk''
 materials from the environment. Certain rocks were chosen for their hardness,
@@ -1094,7 +1085,8 @@ reside in both funding new research and in an applications-centered,
 business-driven approach. They may reside in a shift from old ways of thinking
 and an agility to absorb new technologies as they become available.
 
-\subsection{Information Technology and Networking}
+\subsection{Networks \& Computing Systems}
+\label{et-computing}
 
 The exponential nature of Information Technologies and Networking is a well
 established phenomenon. In 1965, Intel's co-founder Gordon Moore noted that the
@@ -1158,6 +1150,7 @@ nano-scale.
 
 
 \subsection{Neurotechnology and Medicine}
+\label{et-neuro}
 
 The human beings through research and technology have begun to understand the
 nature and mysteries of the Universe. However, Space is a harsh environment,
@@ -1272,6 +1265,7 @@ REFERENCE
 \end{comment}
 
 
+\begin{comment}
 \subsection{Policy, Law, and Ethics}
 
 We are not in a position to fully analyze the far-reaching consequences of
@@ -1300,6 +1294,7 @@ prospect of rapid technological development, the cross-fertilization of ideas,
 new visions and shared dreams for the benefit of all human-kind and this begins
 with the power of the questions we ask ourselves, and the declarations we make
 for our future generations. 
+\end{comment}
 
 
 
@@ -1346,226 +1341,7 @@ technologies, and potential barriers to adoption.
 \secttoc
 \renewcommand{\labelenumi}{(\alph{enumi})}
 
-\subsection{10-year Time Horizon}
-
-\subsubsection{Microbial Fuel Cells}
-
-\begin{description}
-\item[Application:] The use of microbial fuel cells to generate power within
-the Life Support Systems and any different energetic applications in
-spaceflight or planetary stations could be a suitable, renewable and
-efficient way of produce removable energy.
-\item[Problem:] The energy use for life support systems and other
-applications during spaceflight and space station are restricted to
-functions previously planned. The use of additional energy system
-could help in building successful new life support systems and closed
-loop systems.
-\item[Opportunity:] MFCs are devices that use bacteria as the catalysts to
-oxidize organic and inorganic matter and generate current (Rao et al.,
-1976). Electrons produced by the bacteria from these substrates are
-transferred to the anode (negative terminal) and flow to the cathode
-(positive terminal) linked by a conductive material containing a
-resistor, or operated under a load (i.e., producing electricity that
-runs a device). The construction and analysis of MFCs requires
-knowledge of different scientific and engineering fields, ranging from
-microbiology and electrochemistry to materials and environmental
-engineering. For example, was observed that when a water-soluble
-distyrylstilbene oligoelectrolyte (DSSN+) was added into bioreactors,
-these molecules were preferentially accumulate within cell membranes
-and were used as the electron transport mediator increasing the MFCs
-performance (Garner et al., 2010). In addition, Yuan et al. (2010)
-reported a novel bioelectrochemical system to effectively reduce
-organic pollutant with utilization of the energy derived from a
-microbial fuel cell. In such a system, there is a synergetic effect
-between the electrochemical and photocatalytic oxidation processes.
-Both systems show great potential to produce energy and to be part of
-a closed loop system for space exploration.
-\item[Exponential Technologies:] Biotechnology, Synthetic biology.
-\item[Grand Challenges:] Human exploration (staying there, life support systems)
-\item[Other Connected Ideas:] Closed loop systems, bioconductors
-\item[Estimate of the Potential Benefit:] A better source of energy which can
-be used in space propulsion and activation of improved life support
-systems.
-\item[Who is doing it:] \hfill
-\begin{enumerate}
-\item Dr. Bruce E. Logan Hydrogen Energy Center, 212 Sackett Building,
-Penn State University, University Park, Pennsylvania
-\item Dr. Shi-Jie Yuan, Department of Chemistry, University of Science \&
-Technology of China, Hefei, 230026, China
-\item Dr. Korneel Rabaey, and Dr. Jeffrey M. Foley, Advanced Water
-Management Centre, Gehrmann Building, The University of Queensland,
-Brisbane, Queensland 4072, Australia
-\end{enumerate}
-\item[Time Scale:] 5 years
-\item[Convergence:] Being in the area of bioreactors, this technology could
-benefit big challenges in up-cycle and energy areas.
-\item[Significant Bottlenecks:] Microbial fuel cell (MFC) research is a
-rapidly evolving field that lacks established terminology and methods
-for the analysis of system performance. This makes it difficult for
-researchers to compare devices on an equivalent basis.
-The most of MCFs require large volumes to produce more energy which is
-a problem in launch costs.
-\end{description}
-
-\subsubsection{Cheap Spacecraft for Developing Nations}
-
-\begin{description}
-\item[Application:] Use cheap spacecraft as a way to enable developing countries to get involved in space.
-
-\item[Problem:] Third world countries are cut off from technology and science in many ways, and often the general public in such countries don't understand what space is and Earth is just a small part of a larger universe.  
-
-\item[Opportunity:]
-Imagine the headlines: Ethopia launches their own satellite.If we give developing countries the tools to build and launch their own {\emph useful} satellite at a low-cost (via increasing capabilities of satellites and dramatic reduction in cost), we can:
-\begin{enumerate}
-\item get 3rd-world countries more involved in space and give them a greater understanding of the world we live in
-\item Show the world that space is opening up to all people, and becoming increasingly cheaper to get involved. 
-\end{enumerate}
-
-\item[Enabling technologies:]
-The increase in computational power and decrease in cost is enabling satellites to be built at fractions of the current cost.
-
-\item[Who is doing it:]
-\hfill\begin{enumerate}
-\item Chris Boshuizen and a team of NASA Ames Research Center engineers launched two Nexus One cellphones to 30,000 feet in July 2010, with plans to launch them to orbit in 2011 \cite{McNally2010}.
-\item Bob Twiggs, inventor of the CubeSat, is working on launching eight "pocket CubeSats" into orbit in 2011. The cubes are an eighth of the volume of standard CubeSats at roughly 5 centimeters, and are expected to cost less than \$25,000 each with full capabilities \cite{Patel2010}.
-\end{enumerate}
-
-\item[Time Scale:] The materials and parts to launch a satellite for less than \$10,000 and eventually \$1,000 is approaching over the next five to ten years \cite{Patel2010}.
-
-\item[Significant Bottlenecks:] 
-The largest bottleneck isn't the technology. Rather, it's the ability to acquire philanthropic funds for developing countries. Since most countries in Africa don't have the money for clean water or sustainable energy, this idea would have to be sold to philanthropists as a means to educate people in a way that enables them to build their own economy and future space program.
-\end{description}
-
-\subsubsection{DIY Spacecraft}
-
-\begin{description}
-\item[Application:] Build a satellite architecture that is on the order of hundreds of dollars to launch. Allows for individuals to own and operate their own missions.
-
-\item[Problem:] Creating the business case. Creating the communication system to control and send/receive data from the space crafts.
-
-\item[Opportunity:] With current technology a satellite can be made to sizes within 10 cm on a side and costing the price of a personal computer. With the advancements in nanotechnology, computing, and AI/robotics these spacecrafts will continue to shrink exponentially in size. If we can launch 1000s of these in one rocket the cost per satellite becomes very low. 
-
-Each launch will release a swarm of satellites that can serve many purposes. First, because each satellite is identical, all that needs to change to change its mission is the software program, which can be uploaded from ground. This means individuals can own or rent a satellite or any part of the swarm to operate their individual mission, that they create of find through open source software sharing. Monitor global warming from your desktop live, create science fair or research projects, take your own ``pale blue dot'' picture. Google may decide to buy or rent an entire swarm and take Google Earth live giving users incredible benefits such as Instant disaster relief monitoring, The best ideas are the ones that haven't been though of yet.This idea WILL open the space frontier to everyone on Earth.
-
-\item[Estimate of the Potential Benefit:] This technology will be the next best thing to actually putting people in space. It will allow them to see space through their own eyes, which could in turn help motivate the opening of the space frontier.
-
-\item[Who is doing it:] NASA Ames team (Chris Boshuizen, Matthew Reyes, William Marshall), many university Cubesat groups.
-\end{description}
-
-\subsubsection{Open Source Cube Satellites}
-
-\begin{description}
-\item[Application:] Open source/open cube satellites for development (OSCS)
-    
-\item[Problem:] Developing countries more often than not have no direct access to satellites and little 
-influence on application development, such as remote sensing, communication, and science. 
-   
-\item[Opportunity:] OSCS can provide a new platform for developing countries to improve data 
-analytics for development. On open source/open access model is apt to spark innovation in areas 
-such as remote sensing for pandemics, resource identification, communication, education, 
-engineering, etc. 
-%USE of NASA CUBESAT ANNONCEMENT  for 2011 possible.
-%(\burl{https://www.fbo.gov/index?s=opportunity&mode=form&id=5f87fc37b28adbfc05942bc961468ac5&tab=core&_cview=0})
- 
-\item[Exponential Technologies:]    Nanotechnology, Computing, and/or
-Networks.
- 
-\item[Grand Challenges:] Getting There, Space Science
- 
-\item[Other Connected Ideas:]   Intelligent Space Operating System (ISOS)
- 
-\item[Estimate of the Potential Benefit:]  Significant benefit for developing countries if combined 
-with terrestrial communication systems. Financing can be achieved through Worldbank and 
-NGO’s with the benefit that loans/donations are transparent (Satellite/infrastructure).
- 
-\item[Who is doing it:]
-\hfill\begin{enumerate}
-\item NASA
-\item ESA
-\item JAXA
-\item MIT
-\end{enumerate}
- 
-\item[Time Scale:] Immediately, increasingly cheaper in future
- 
-\item[Convergence:] Nanotechology 
- 
-\item[Significant Bottlenecks:] Cheap Access to Space
-\end{description}
-
-\subsubsection{Intelligent Space Operating System}
-
-\begin{description}
-\item[Application:] Intelligent Space Operating System (ISOS)
-   
-\item[Problem:] Robotics, AI and communication systems for space more often than not are designed 
-in isolated fashion. Hence devices and data transmission is mostly non-interoperable, isolated 
-with great redundancies.
-   
-\item[Opportunity:] An Intelligent Space Operating System provides an open ecosystem for AI, 
-communication systems and satellites, as well as robotics to tie in by means of standardized 
-API’s. Parts of such ISOS can be open-source and reconfigurable. Open access, open purpose, is 
-granted as much as possible. AN ISOS ideally encompasses all technology within space and 
-provides unique identifiers (IPs with encrypted authentication for safety/privacy). Similar to the 
-earthbound internet (of things) the ISOS provides connectivity, packet switching and 
-intermittent storage, smart communication processes and optimal routing, satellite access, swarm 
-satellite tie-in, spacecraft and extraterrestrial station communication, inter and intra-stellar 
-communications, earthbound internet access and geo-stational satellites, real-time as well as time-
-buffered information transmission, and inter-robotic communication. 
- 
-\item[Exponential Technologies:]    Nanotechnology (Microsatellites), Computing Networks, Laser 
-technology, Solar Panels/energy
- 
-\item[Grand Challenges:] Robotic Exploration/ Communication & Information Networks
- 
-\item[Estimate of the Potential Benefit:]  Eradication of redundancies, standardization, smart 
-information transmission.
- 
-\item[Who is doing it:]
-\hfill\begin{enumerate}
-\item Google
-\item NASA
-\item ESA
-\item JAXA
-\end{enumerate}
- 
-\item[Time Scale:] Incremental growth during the next years, inclining growth with evolution of 
-microsatellites, exponential growth as soon as cheap access is possible.
- 
-\item[Convergence:] nanotech
- 
-\item[Significant Bottlenecks:] cheap access to space, but not essential
-\end{description}
-
-\subsubsection{Protein engineering for drug design}
-
-Protein engineering for drug design
-
-Application: X-ray crystallography and electron crystallography in space can be used to obtain higher quality 3D and 2D crystals, respectively, of proteins engineered for specific drug target interaction.
-
-Problem: Protein crystallography is a science in its own right. The process of making a crystal is laborious and the protocol not automatable as it is slightly different for each protein. Not only, the same method cannot be deployed for soluble and insoluble (or membrane) proteins since the types of crystals that they generate are different. On average only one over ten proteins yields crystals suitable for structure determination (Vergara 2005).
-
-Opportunity: Increasing the success rate of protein crystallography using space.
-
-Exponential Technologies: X-ray crystallographer, Transmission Electron Microscope
-
-Grand Challenges: Human exploration
-
-Other Connected Ideas: Having crystallisation facilities on board of a space shuttle or space station will enable the analysis of any molecule whose atoms can be arranged in solids. Asteroid composition as well as planet soil compositions can be analysed this way, by sampling first, crystallizing and then imaging.
- 
-Estimate of the Potential Benefit:
-
-Who is doing it:
-(a) Zagari laboratories at the University of Naples "Federico II"
-(b) Julio's laboratories
-
-Time Scale: 5 years
-
-Convergence: Advances in X-ray and electron crystallography technologies will make the production of high quality crystals less fundamental for the generation of a high quality image. Also, methods such as fiber diffraction, powder diffraction and small-angle X-ray scattering are all technologies that are deployed as an alternative to X-ray and electron crystallography for the production of lower resolution images, but will grow exponentially over the next ten years and will become just as good options to X-ray and electron crystallography.
-
-Significant Bottlenecks: Crystal production, especially for membrane (insoluble) proteins. Advances in X-ray and electron crystallography technologies might result
-
-
+\input{chrisographs}
 
 \clearpage
 \phantomsection
