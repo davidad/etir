@@ -1,6 +1,6 @@
 \begin{landscape}
 	\vspace*{\stretch{1}}
-\begin{tikzpicture}[scale=0.28,>=stealth]
+\begin{tikzpicture}[scale=0.195,>=stealth]
 	\begin{scope}
 	\tikzstyle{stdbox} = [draw,shape=rectangle,minimum size=1em,inner xsep=0.25em,inner ysep=0.25em,font=\tiny,text badly centered];
 	\tikzstyle{emph} = [font=\tiny\bfseries,thick];
@@ -10,18 +10,18 @@
 	\tikzstyle{exptech} = [stdbox,draw=exptech,emph,fill=exptech!50];
 \begin{dot2tex}[codeonly,dot,tikz]
 digraph G {
-  ratio=0.7;
+  ratio=0.6;
 	rankdir=BT;
 	//% GRAND CHALLENGES
-	node [style="challenge"];
-	getting_there [label="Getting There"];
-	staying_there [label="Staying There"];
-	human_exploration [label="Human Exploration",style="challenge"];
-	resources [label="Space Resources"];
-	robotic_exploration [label="Robotic Exploration",style="challenge"];
-	science [label="Space Science"];
-	education [label="Space Evangelism"];
-	backup [label="Insuring Humanity"];
+	node [texmode="raw",style="challenge"];
+	getting_there [label="\hyperref[ps-getting-there]{Getting There}"];
+	staying_there [label="\hyperref[ps-staying-there]{Staying There}"];
+	human_exploration [label="\hyperref[ps-human-exploration]{Human Exploration}",style="challenge"];
+	resources [label="\hyperref[ps-space-resources]{Space Resources}"];
+	robotic_exploration [label="\hyperref[ps-robotic-exploration]{Robotic Exploration}",style="challenge"];
+	science [label="\hyperref[ps-space-science]{Space Science}"];
+	education [label="\hyperref[ps-space-evangelism]{Space Evangelism}"];
+	backup [label="\hyperref[ps-insuring-humanity]{Insuring Humanity}"];
 
 	edge [style="thick,color=challenge"];
 	human_exploration -> staying_there; //[dir="none"];
@@ -39,11 +39,11 @@ digraph G {
 
   //% EXPONENTIAL TECHNOLOGIES
 	node [style="exptech"];
-	nano [label="Nanotechnology"];
-	bio [label="Biotechnology"];
-	neuro [label="Neurotechnology"];
-	ai [label="AI & Robotics"];
-	computing [label="Networks & Computing"];
+	nano [label="\hyperref[et-nano]{Nanotechnology}"];
+	bio [label="\hyperref[et-bio]{Biotechnology}"];
+	neuro [label="\hyperref[et-neuro]{Neurotechnology}"];
+	ai [label="\hyperref[et-ai]{AI \& Robotics}"];
+	computing [label="\hyperref[et-computing]{Networks \& Computing}"];
 
 	edge [style="thick,color=exptech"];
 	computing -> ai;
@@ -63,24 +63,22 @@ digraph G {
 	//% beam_power -> cats;
 	//% heat_exchanger -> beam_power;
 	//% heat_exchanger [label="Heat Exchanger"];
-	structural_materials [label="Structural Materials"];
-	thermal_materials [label="Thermal Materials"];
+	thermal_materials [label="\hyperref[thermal-materials]{Thermal Materials}"];
 	nano -> thermal_materials;
-	nano -> structural_materials;
 	//% thermal_materials -> heat_exchanger;
-	stirling [label="Stirling Engine"];
+	stirling [label="\hyperref[stirling]{Stirling Engine}"];
 	thermal_materials -> stirling;
-	energy [label="Space Energy"];
+	energy [label="Space Energy",style="stdbox"];
 	stirling -> energy;
 	energy -> resources;
 	pv [label="Photovoltaics"];
-	sbsp [label="\pbox{2.5cm}{Space-Based Solar Power}"];
+	sbsp [label="\pbox{2.5cm}{\hyperref[sbsp]{Space-Based Solar Power}}",style="stdbox"];
 	sbsp -> energy;
 	pv -> sbsp;
 	nano -> pv;
-  structural_materials -> light_lv;
-	light_lv [label="Lighter Launch Vehicles",style="stdbox,text width=2.4cm"];
-	light_lv -> cats;
+	extprop [label="\hyperref[extprop]{External Propulsion}"];
+	thermal_materials -> extprop;
+	extprop -> cats;
 	//% light_lv -> ssto;
 	//% ssto [label="Single-Stage to Orbit"];
   //% ssto -> cats;
@@ -88,13 +86,10 @@ digraph G {
 	//% psychmon [label="Psych. Monitoring"];
 	//% neuro -> psychmon;
 	//% psychmon -> human_exploration;
-	rubisco [label="RubisCO"];
-	bio -> rubisco;
-	terraforming [label="Terraforming"];
-	rubisco -> terraforming
+	terraforming [label="\hyperref[terraform]{Terraforming}"];
 	terraforming -> staying_there
 
-	suit [label="Nanotech Space Suits"];
+	suit [label="\hyperref[nano-suit]{Nanotech Space Suits}"];
 	nano -> suit;
 	suit -> human_exploration;
 
@@ -105,13 +100,13 @@ digraph G {
 	//% bio -> metal_digesters;
 	//% metal_digesters -> asteroid_mining;
 
-	aisyn [label="AI\&SynBio"];
+	aisyn [label="\hyperref[aisyn]{AI\&SynBio}"];
 	ai -> aisyn;
 	bio -> aisyn;
 	aisyn -> terraforming;
-	human_enhancement [label="Human Enhancement"];
+	human_enhancement [label="\hyperref[enhancement]{Human Enhancement}"];
 	aisyn -> human_enhancement;
-	brain_simulation [label="Brain Simulation"];
+	brain_simulation [label="\hyperref[brain-sim]{Brain Simulation}"];
 	neuro -> brain_simulation;
 	brain_simulation -> human_exploration;
 	brain_simulation -> robotic_exploration;
@@ -121,72 +116,64 @@ digraph G {
 	life_support -> human_exploration;
 	life_support -> staying_there;
 
-	sensor_net [label="Intelligent Environments"]
+	sensor_net [label="\hyperref[i2e]{Intelligent Environments}"]
 	//computing -> sensor_net;
 	sensor_net -> life_support;
 	ai -> sensor_net;
 
-	bmi [label="Brain-Machine Interface"];
+	bmi [label="\hyperref[bmi]{Brain-Machine Interface}"];
 	neuro -> bmi;
 	bmi -> robotic_exploration;
 	bmi -> human_exploration;
 
-	bio_research [label="Bio Research in $\mu$Gravity"];
+	bio_research [label="\hyperref[bio-research]{Bio Research in $\mu$Gravity}"];
 	bio -> bio_research;
 	bio_research -> science;
 
-	neuro_treat [label="Neurotech Treatments"];
+	neuro_treat [label="\hyperref[neuro-treat]{Neurotech Treatments}"];
 	neuro_treat -> human_exploration;
 	neuro -> neuro_treat;
 
-	space_portal [label="Space Portal/VR"];
-	computing -> space_portal;
-	ai -> space_portal;
-	space_portal -> education;
-
-	astro_bot [label="Companion Robot"];
+	astro_bot [label="\hyperref[companion]{Companion Robot}"];
 	ai -> astro_bot;
 	astro_bot -> human_exploration;
 
-	microbe_fuel [label="Microbial Fuel Cells"];
+	microbe_fuel [label="\hyperref[microbe-fuel]{Microbial Fuel Cells}"];
 	microbe_fuel -> life_support;
 	bio -> microbe_fuel;
 
-	print [label="3D Printing"];
+	print [label="\hyperref[3dprint]{3D Printer}"];
   computing -> print;
 	nano -> print;
 	print -> asteroid_mining;
 	print -> cats;
 
-	bio_rad [label="Biopolymer Radiation Shield"];
+	bio_rad [label="\hyperref[biopolymer]{Biopolymer Radiation Shield}"];
 	bio -> bio_rad;
 	bio_rad -> human_exploration;
 
-	space_comp [label="Space Supercomputer"];
+	space_comp [label="\hyperref[supercom]{Space Supercomputer}",style="stdbox,xshift=4mm"];
 	computing -> space_comp;
 	space_comp -> ipip [dir="both"];
 	space_comp -> resources;
 
-	swarm [label="Swarms"];
+	swarm [label="\hyperref[swarm]{Swarms}"];
 	ipip -> swarm [dir="both"];
 	swarm -> space_comp [dir="both"];
 	swarm -> cats [dir="both"];
 	swarm -> robotic_exploration;
 
-	auto_explore [label="Autonomous Explorers",style="stdbox"];
+	auto_explore [label="\hyperref[auto-explore]{Autonomous Explorers}",style="stdbox"];
 	ai -> auto_explore;
 	auto_explore -> robotic_exploration;
 	auto_explore -> asteroid_mining;
 
-	ipip [label="Interplanetary Internet"];
+	ipip [label="\hyperref[ipip]{Interplanetary Internet}"];
 	computing -> ipip;
 	ipip -> auto_explore;
 	ipip -> robotic_exploration;
 
-	spider_silk [label="Spider Silk"];
-	spider_silk -> structural_materials;
-	bio -> spider_silk;
-	bioreactors [label="Bioreactors"];
+	bioreactors [label="\hyperref[bioreactors]{Bioreactors}"];
 	bioreactors -> life_support;
 	bio -> bioreactors;
 }
